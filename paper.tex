@@ -1,9 +1,24 @@
-\documentclass[11pt]{article}
+\documentclass[11pt,twocolumn]{article}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb}
 \usepackage{hyperref}
+\usepackage{standalone}
+\usepackage{tikz}
+
+
+\usetikzlibrary{positioning,arrows.meta}
+
+% custom commands
+\newcommand{\subg}{\preccurlyeq}
+\newcommand{\subgind}{\preccurlyeq_{\mathrm{ind}}}
+\newcommand{\Forb}{\operatorname{Forb}}
+\newcommand{\occ}[3]{\operatorname{occ}_{#2}(#1,#3)}
+\newcommand{\toggle}[2]{#1\mathbin{\oplus}#2}
+\newcommand{\edcost}[1]{\lvert #1\rvert}
+\newcommand{\ParetoMin}{\operatorname{ParetoMin}}
+
 
 \title{FGCGen: Generating Synthetic Graph Datasets for Structural Rule Discovery}
 \author{
@@ -15,12 +30,124 @@
 \maketitle
 
 \begin{abstract}
-Understanding the reasoning behind decisions of Graph Neural Networks (GNNs) is crucial for trustworthy machine learning. However, current explainers often just yield a mask highlighting an salient subgraph for each instance, omitting crucial global information or model-wide patterns. To address this problem the new field of structural graph learning is developing where global patterns are discovered and validated, usually through a neuro-symbolic learning framework.
-Since the field is still in its infancy, reliable benchmarks of
+Understanding the reasoning behind decisions of Graph Neural Networks (GNNs) is crucial for trustworthy machine learning.
+The novel field of Structural Graph Learning aims to output global and interpretable logical rules where current explainers often just yield a mask highlighting salient subgraphs for every single instance, often omitting crucial global information or model-wide patterns.
+Existing graph benchmark datasets either lack a known ground-truth rule or are designed in a contrived way that makes them unsuitable for rule discovery.  % mention statistical shortcuts already?
+We identify multiple such failure cases in all existing benchmark datasets and present the \emph{Forbidden Graph Characterization Generator} (FGCGen) as a solution.
+Given forbidden subgraphs, optional imposed fragments, graph order, and a density band or degree cap, FGCGen grows connected valid graphs with a particle beam, and MCMC annealing.
+To ensure identifiability of the dataset rule a thightly defined decision boundary is required. 
+We present the generation of suitable negatives as a optimization problem that has to balance the number of edits and violating patterns.
+Finally we show empirically that most current models are unable to detect the defining patterns and existing explainers cannot reliably highlight the fundamental rule.
 \end{abstract}
 
-\section{Introduction}
-\label{sec:intro}
+\section{Introduction} \label{sec:intro}
+% intro
+Many scientific questions about graphs concern a relationship between structure and an outcome.
+In chemistry, certain mandatory functional groups or forbidden toxicophores determine the behaviour of a molecule or reaction. In other scenarios like finance and social networks, graph structures can reveal fraud or spam networks within a graph \cite{TODO}.
+While predictive models like GNNs have shown great success on these classification tasks, they do not naturally reveal the learned relationship.
+% Explainers
+(Graph) Explainers are attempts on extracting the underlying mechanism that lead to a decision, usually by highlighting a salient subgraph per instance \cite{GNNExplainer, PGExplainer, SubgraphX} or across the dataset \cite{XGNN, Some explainer survey}. More sophisticated approaches also output conjunctions of multiple patterns or simple graph rules \cite{GLGExplainer, LogiX-GIN, GraphTrail, mullerGraphChefLearningRecipe}.
+% rule recovery / structural graph learning (explanations don't match rules)
+Recovering a general rule that classifies all graphs in the dataset is the main goal of structural graph learning.
+
+% desired rule format and desired dataset
+% TODO: mention the boundary nearness requirement
+
+Synthetic benchmarks are attractive because their labels and explanations can be known by construction.
+
+
+\begin{figure}[ht]
+	\centering
+	\includestandalone[width=\linewidth]{figures/positioning}
+	\caption{Overview of graph learning approaches.}
+	\label{fig:overview}
+\end{figure}
+
+
+Creating such data is hard because structural graph classes occupy highly constrained regions of graph space. Blind (rejection) sampling can make valid graphs vanishingly rare, while independently generated class pools can be separated by density, degree, construction artifacts, or a wide edit margin.
+
+
+
+% common dataset problems
+ \cite{faber_problems}
+
+
+
+% classification between existing datasets and graph conjecturing (fig 1)
+
+% FGCGen (other generators are property specific or too expensive)
+
+% Boundary crossing
+
+% Released data
+
+% contibutions
+
+
+\section{Related Work}
+
+
+
+\section{Failure Modes for Synthetic Graph Datasets}
+% TODO: introduce notation here and then make the failure modes more formal!!!
+
+\subsection{Notation}
+
+Use finite, simple, undirected graphs. Write $G=(V,E)$, $n=|V|$, and $G[S]$ for an induced subgraph. Use $\mathcal G$ for the graph universe, $D\subseteq\mathcal G$ for the declared population domain, and $P:D\to\{0,1\}$ for the complete task rule.
+% ideally D = \mathcal G$
+Throughout this paper in-property graphs satisfy $P(G)=1$ and negatives satisfy $P(G)=0$.
+To constraint the set of valid negative to be boundary-close, we require negatives to not leave $\mathcal{G}$, just the class defined by $P$.
+
+The generator supports two containment relations. We say $H \subg G$ is the ordinary monomorphism: an injective edge-preserving map where additional host edges among mapped vertices are allowed. $H \subgind G$ defines the induced subgraph isomorphism, a map that also preserves nonedges.
+
+
+
+\section{FGCGen}
+
+\subsection{Rule Language}
+
+Since we allow both induced and ordinary containment relations, we define a presence feature:
+$$
+A_{H,R}(G)=
+\begin{cases}
+	\mathbf 1[H\subg G],&R=\mathrm{sub},\\
+	\mathbf 1[H\subgind G],&R=\mathrm{ind}.
+\end{cases}
+$$
+
+The allowed language of the generator is a CNF over the patterns $\mathcal{F} =\{(F_i,R_i)\}_i$ and $\mathcal{H}=\{(H_j,T_j)\}_j$:
+$$
+P(G)=1 \iff \bigwedge_i\neg A_{F_i,R_i}(G) \land \bigwedge_j A_{H_j,T_j}(G), \qquad G\in D.
+$$
+This can be trivially unrolled to a fragment of existential-quantified first order logic on graphs.
+% TODO: the all vs any thing in the imposed side ....
+
+The forbidden patterns alone define $P_{\Forb}=\bigwedge_i\neg A_{F_i,R_i}(G)$, a hereditary backbone, closed under induced vertex deletion, even with mixed matching relations.  % TODO: is this correct?
+
+% To avoid expensive, yet redundant computations during generation we exploit the heredity and enforce an anti-chain amongst the foribdden patterns.
+
+
+
+
+
+\section{Boundary Crossing}
+
+Suitable negatives need to remain close to the boundary.
+% TODO: positives are always boundary close, while negatives can be like $\varepsilon n^2$ far away \cite{TODO}
+
+% TODO: also make sure that this is not only for induced subgraphs. (consider ordianry and even imposed fragments?)
+
+Given an in property graph $G \in \mathcal{G}$, we aim to retrieve a graph $G' = G \oplus \delta \not\in \mathcal{G}$ created through an edit set $\delta \subseteq \binom{V(G)}{2}$
+% TODO: proof that an edit set always exists
+
+% The edit cost $| \delta |$ and the witness count are two conflicting quantities.
+
+Unlike saturation theory this boundary crossing is 
+
+
+\appendix
+
+\section{Proofs}\label{app:proofs}
 
 
 \end{document}

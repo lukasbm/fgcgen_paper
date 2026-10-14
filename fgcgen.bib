@@ -10,7 +10,7 @@
   urldate = {2026-07-21},
   abstract = {The discovery and analysis of network patterns are central to the scientific enterprise. In the present work, we developed and evaluated a new approach that learns the building blocks of graphs that can be used to understand and generate new realistic graphs. Our key insight is that a graph's clique tree encodes robust and precise information. We show that a Hyperedge Replacement Grammar (HRG) can be extracted from the clique tree, and we develop a fixed-size graph generation algorithm that can be used to produce new graphs of a specified size. In experiments on large real-world graphs, we show that graphs generated from the HRG approach exhibit a diverse range of properties that are similar to those found in the original networks. In addition to graph properties like degree or eigenvector centrality, what a graph "looks like" ultimately depends on small details in local graph substructures that are difficult to define at a global level. We show that the HRG model can also preserve these local substructures when generating new graphs.},
   pubstate = {prepublished},
-  keywords = {Computer Science - Formal Languages and Automata Theory,Computer Science - Social and Information Networks},
+  keywords = {Computer Science - Formal Languages and Automata Theory,Computer Science - Social and Information Networks,generation,robustness},
   file = {/homes/biertank/lukas/Zotero/storage/WXUVELCV/Aguinaga et al. - 2018 - Learning Hyperedge Replacement Grammars for Graph Generation.pdf}
 }
 
@@ -41,17 +41,8 @@
   urldate = {2026-06-03},
   abstract = {A common thread in all the recent results concerning testing dense graphs is the use of Szemere´di’s regularity lemma. In this paper we show that in some sense this is not a coincidence. Our first result is that the property defined by having any given Szemer´edi-partition is testable with a constant number of queries. Our second and main result is a purely combinatorial characterization of the graph properties that are testable with a constant number of queries. This characterization (roughly) says that a graph property P can be tested with a constant number of queries if and only if testing P can be reduced to testing the property of satisfying one of finitely many Szemer´edi-partitions. This means that in some sense, testing for Szemere´di-partitions is as hard as testing any testable graph property. We thus resolve one of the main open problems in the area of property-testing, which was first raised in the 1996 paper of Goldreich, Goldwasser and Ron [24] that initiated the study of graph property-testing. This characterization also gives an intuitive explanation as to what makes a graph property testable.},
   langid = {english},
+  keywords = {explainability},
   file = {/homes/biertank/lukas/Zotero/storage/RBBE33QM/Alon et al. - 2009 - A Combinatorial Characterization of the Testable Graph Properties It's All About Regularity.pdf}
-}
-
-@article{alonEfficientTestingLarge,
-  title = {Efficient Testing of Large Graphs},
-  author = {Alon, Noga and Fischer, Eldar and Krivelevich, Michael and Szegedy, Mario},
-  journaltitle = {Combinatorica},
-  doi = {10.1007/s004930070001},
-  abstract = {Let P be a property of graphs. An -test for P is a randomized algorithm which, given the ability to make queries whether a desired pair of vertices of an input graph G with n vertices are adjacent or not, distinguishes, with high probability, between the case of G satisfying P and the case that it has to be modified by adding and removing more than n2 edges to make it satisfy P . The property P is called testable, if for every there exists an -test for P whose total number of queries is independent of the size of the input graph. Goldreich, Goldwasser and Ron [8] showed that certain individual graph properties, like k-colorability admit an -test. In this paper we make a first step towards a complete logical characterization of all testable graph properties, and show that properties describable by a very general type of coloring problem are testable. We use this theorem to prove that first order graph properties not containing a quantifier alternation of type “∀∃” are always testable, while we show that some properties containing this alternation are not.},
-  langid = {english},
-  file = {/homes/biertank/lukas/Zotero/storage/8D36A2QD/Alon et al. - Eﬃcient testing of large graphs.pdf}
 }
 
 @article{alonStructureAlmostAll2011,
@@ -124,6 +115,7 @@
   journaltitle = {Algorithmica},
   doi = {10.1007/s00453-009-9340-1},
   langid = {english},
+  keywords = {generation},
   file = {/homes/biertank/lukas/Zotero/storage/HUYI75VQ/Bayati et al. - A Sequential Algorithm for Generating Random Graphs.pdf}
 }
 
@@ -136,6 +128,7 @@
   doi = {10.48550/arxiv.2502.14546},
   abstract = {While machine learning on graphs has demonstrated promise in drug design and molecular property prediction, significant benchmarking challenges hinder its further progress and relevance. Current benchmarking practices often lack focus on transformative, real-world applications, favoring narrow domains like two-dimensional molecular graphs over broader, impactful areas such as combinatorial optimization, relational databases, or chip design. Additionally, many benchmark datasets poorly represent the underlying data, leading to inadequate abstractions and misaligned use cases. Fragmented evaluations and an excessive focus on accuracy further exacerbate these issues, incentivizing overfitting rather than fostering generalizable insights. These limitations have prevented the development of truly useful graph foundation models. This position paper calls for a paradigm shift toward more meaningful benchmarks, rigorous evaluation protocols, and stronger collaboration with domain experts to drive impactful and reliable advances in graph learning research, unlocking the potential of graph learning.},
   langid = {english},
+  keywords = {benchmark},
   file = {/homes/biertank/lukas/Zotero/storage/YG6WYQ57/Bechler-Speicher et al. - Position Graph Learning Will Lose Relevance Due To Poor Benchmarks.pdf}
 }
 
@@ -155,6 +148,7 @@
   isbn = {978-0-89871-432-6},
   langid = {english},
   pagetotal = {304},
+  keywords = {survey},
   file = {/homes/biertank/lukas/Zotero/storage/KQ75AHKQ/Brandstädt et al. - 1999 - Graph classes a survey.pdf}
 }
 
@@ -188,6 +182,7 @@
   urldate = {2026-06-03},
   abstract = {Generation of deviates from random graph models with non-trivial edge dependence is an increasingly important problem. Here, we introduce a method which allows perfect sampling from random graph models in exponential family form (“exponential family random graph” models), using a variant of Coupling From The Past. We illustrate the use of the method via an application to the Markov graphs, a family that has been the subject of considerable research. We also show how the method can be applied to a variant of the biased net models, which are not exponentially parameterized.},
   langid = {english},
+  keywords = {generation},
   file = {/homes/biertank/lukas/Zotero/storage/Z55HYA63/Butts - 2018 - A perfect sampling method for exponential family random graph models.pdf}
 }
 
@@ -196,6 +191,7 @@
   author = {Caro, Yair and Davila, Randy and Henning, Michael A and Pepper, Ryan},
   abstract = {TxGraffiti is an automated conjecturing program that produces graph theoretic conjectures in the form of conjectured inequalities. This program written and maintained by the second author since 2017 was inspired by the successes of previous automated conjecturing programs including Fajtlowicz’s GRAFFITI and DeLaVi˜na’s GRAFFITI.pc. In this paper we prove and generalize several conjectures generated by TxGraffiti when it was prompted to conjecture on the independence number, the domination number, and the matching number (and generalizations of each of these graph invariants). Moreover, in several instances we also show the proposed inequalities relating these graph invariants are sharp.},
   langid = {english},
+  keywords = {causality},
   file = {/homes/biertank/lukas/Zotero/storage/LY4EXLWB/Caro et al. - Conjectures of TxGraﬃti Independence, domination, and matchings.pdf}
 }
 
@@ -219,6 +215,7 @@
   title = {What Is a Pseudorandom Graph?},
   author = {Conlon, David},
   langid = {english},
+  keywords = {generation},
   file = {/homes/biertank/lukas/Zotero/storage/AAWMTZ9T/Conlon - What is a pseudorandom graph.pdf}
 }
 
@@ -250,6 +247,7 @@
   abstract = {Texas Graffiti (TxGraffiti) is an automated conjecturing system that operates on a finite, versioned snapshot table of mathematical objects equipped with precomputed numerical invariants and Boolean predicates. For a chosen target invariant and hypothesis predicate, TxGraffiti searches over predicate–predictor combinations and generates table-true conditional inequalities by fitting coefficients within simple, human-readable templates (e.g., univariate affine upper and lower bounds) via a sequence of small linear programs. The resulting candidates are ranked and compressed using heuristics that measure informativeness (e.g., touch/sharp behavior) and remove redundancy or transitive implication, producing a compact set of interpretable conjectures suitable for further testing and proof. We describe the system architecture, data curation workflow, optimization models, and filtering procedures, and we provide an interactive web interface together with an open-source Python implementation. Although our examples focus on graph invariants, the snapshot-table paradigm and optimization-andfiltering pipeline apply broadly whenever objects admit computable features and predicates.},
   langid = {english},
   pubstate = {prepublished},
+  keywords = {causality,explainability},
   file = {/homes/biertank/lukas/Zotero/storage/UNQHVL3T/Davila - 2025 - Automated Conjecturing with Txgraffiti.pdf}
 }
 
@@ -268,6 +266,7 @@
   urldate = {2026-06-11},
   abstract = {The field of synthetic generation of attributed graphs is actively developing due to advances in generative modeling. However, a key problem of current methods remains the limited diversity of synthesized graphs, due to the dependence on the characteristics of real data used to train generative models. This is a problem because topological properties of graphs and statistical characteristics of attributes critically affect the performance of graph-based machine learning models. In this paper, we test the hypothesis that a combination of evolutionary algorithms and Bayesian networks can provide flexible control over the generation of both graph topology and attributes. The proposed approach includes two key components: evolutionary algorithms to control topological characteristics of the graph (e.g. average vertex degree, clustering coefficient) and Bayesian networks to generate attributes with given statistical parameters such as assortativity or average correlation between attributes. The method allows explicitly setting constraints on graph properties, providing variability independent of the original data. Experiments confirmed that the approach can generate attributed graphs with a wide range of topological characteristics and given statistical parameters of the attributes with sufficiently low generation error. The results demonstrate the promising use of evolutionary and Bayesian methods for conditional graph generation. The main advantage of the approach is the ability to decompose the problem into independent control of topology and attributes, which opens new possibilities for testing machine learning algorithms under controlled conditions. A limitation is the computational complexity of evolutionary optimization, which requires further work to optimize the algorithm. In the future, the method can be extended to generate dynamic graphs and integrate with deep generative models.},
   langid = {russian},
+  keywords = {generation},
   file = {/homes/biertank/lukas/Zotero/storage/E5INLQH7/Deeva et al. - 2025 - Investigation of the possibility of using evolutionary algorithms for conditional generation of attr.pdf}
 }
 
@@ -317,6 +316,7 @@
   doi = {10.2139/ssrn.4383265},
   abstract = {Graph convexity has been used as an important tool to better understand the structure of classes of graphs. Many studies are devoted to determine if a graph equipped with a convexity is a convex geometry. In this work, we survey results on characterizations of well-known classes of graphs via convex geometries. We also give some contributions to this subject.},
   langid = {english},
+  keywords = {survey},
   file = {/homes/biertank/lukas/Zotero/storage/X9857W8M/Dourado et al. - Characterizations of graph classes via convex geometries a survey.pdf}
 }
 
@@ -398,7 +398,7 @@
   urldate = {2026-09-08},
   abstract = {Existing rule-based explanations for Graph Neural Networks (GNNs) provide global interpretability but often optimize and assess fidelity in an intermediate, uninterpretable concept space, overlooking grounding quality for end users in the final subgraph explanations. This gap yields explanations that may appear faithful yet be unreliable in practice. To this end, we propose LogicXGNN, a post-hoc framework that constructs logical rules over reliable predicates explicitly designed to capture the GNN's message-passing structure, thereby ensuring effective grounding. We further introduce data-grounded fidelity (\$\textbackslash textit\{Fid\}\_\{\textbackslash mathcal\{D\}\}\$), a realistic metric that evaluates explanations in their final-graph form, along with complementary utility metrics such as coverage and validity. Across extensive experiments, LogicXGNN improves \$\textbackslash textit\{Fid\}\_\{\textbackslash mathcal\{D\}\}\$ by over 20\% on average relative to state-of-the-art methods while being 10-100 \$\textbackslash times\$ faster. With strong scalability and utility performance, LogicXGNN produces explanations that are faithful to the model's logic and reliably grounded in observable data. Our code is available at https://github.com/allengeng123/LogicXGNN/.},
   pubstate = {prepublished},
-  keywords = {Computer Science - Machine Learning},
+  keywords = {Computer Science - Machine Learning,explainability},
   file = {/homes/biertank/lukas/Zotero/storage/ZELETEPM/Geng et al. - 2026 - LogicXGNN Grounded Logical Rules for Explaining Graph Neural Networks.pdf}
 }
 
@@ -415,7 +415,7 @@
   urldate = {2026-06-13},
   abstract = {Graph Neural Networks (GNNs) have become essential in high-stakes domains such as drug discovery, yet their black-box nature remains a significant barrier to trustworthiness. While selfexplainable GNNs attempt to bridge this gap, they often rely on standard message-passing backbones that inherit fundamental limitations, including the 1-Weisfeiler-Lehman (1-WL) expressivity barrier and a lack of fine-grained interpretability. To address these challenges, we propose SYMGRAPH, a symbolic framework designed to transcend these constraints. By replacing continuous message passing with discrete structural hashing and topological role-based aggregation, our architecture theoretically surpasses the 1WL barrier, achieving superior expressiveness without the overhead of differentiable optimization. Extensive empirical evaluations demonstrate that SYMGRAPH achieves state-of-the-art performance, outperforming existing self-explainable GNNs. Notably, SYMGRAPH delivers 10× to 100× speedups in training time using only CPU execution. Furthermore, SYMGRAPH generates rules with superior semantic granularity compared to existing rule-based methods, offering great potential for scientific discovery and explainable AI.},
   pubstate = {prepublished},
-  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning,explainability},
   file = {/homes/biertank/lukas/Zotero/storage/LZPXLM9V/Geng et al. - 2026 - Beyond Message Passing A Symbolic Alternative for Expressive and Interpretable Graph Learning.pdf}
 }
 
@@ -433,7 +433,7 @@
   abstract = {We challenge black-box purely deep neural approaches for molecules and graph generation, which are limited in controllability and lack formal guarantees. We introduce NeuroSymbolic Graph Generative Modeling (NSGGM), a neurosymbolic framework that reapproaches molecule generation as a scaffold and interaction learning task with symbolic assembly. An autoregressive neural model proposes scaffolds and refines interaction signals, and a CPU-efficient SMT solver constructs full graphs while enforcing chemical validity, structural rules, and userspecific constraints, yielding molecules that are correct by construction and interpretable control that pure neural methods cannot provide. NSGGM delivers strong performance on both unconstrained generation and constrained generation tasks, demonstrating that neuro-symbolic modeling can match state-of-the-art generative performance while offering explicit controllability and guarantees. To evaluate more nuanced controllability, we also introduce a LogicalConstraint Molecular Benchmark, designed to test strict hard-rule satisfaction in workflows that require explicit, interpretable specifications together with verifiable compliance.},
   langid = {english},
   pubstate = {prepublished},
-  keywords = {Computer Science - Machine Learning,FOS: Computer and information sciences,Machine Learning (cs.LG)},
+  keywords = {Computer Science - Machine Learning,explainability,FOS: Computer and information sciences,generation,Machine Learning (cs.LG)},
   file = {/homes/biertank/lukas/Zotero/storage/28PXV4Z8/Geng et al. - 2026 - Neural Proposals, Symbolic Guarantees Neuro-Symbolic Graph Generation with Hard Constraints.pdf}
 }
 
@@ -452,6 +452,7 @@
   abstract = {Graphs are used in many disciplines to model the relationships that exist between objects in a complex discrete system. Researchers may wish to compare a network of interest to a “typical” graph from a family (or ensemble) of graphs which are similar in some way. One way to do this is to take a sample of several random graphs from the family, to gather information about what is “typical”. Hence there is a need for algorithms which can generate graphs uniformly (or approximately uniformly) at random from the given family. Since a large sample may be required, the algorithm should also be computationally efficient.},
   isbn = {978-1-009-03621-4 978-1-009-01888-3},
   langid = {english},
+  keywords = {generation},
   file = {/homes/biertank/lukas/Zotero/storage/CRCMH7X2/Greenhill - 2021 - Generating graphs randomly.pdf}
 }
 
@@ -482,16 +483,6 @@
   abstract = {We analyse the power of graph neural networks (GNNs) in terms of Boolean circuit complexity and descriptive complexity. We prove that the graph queries that can be computed by a polynomial-size bounded-depth family of GNNs are exactly those definable in the guarded fragment GFO+C of first-order logic with counting and with built-in relations. This puts GNNs in the circuit complexity class (non-uniform) \$\textbackslash text\{TC\}\textasciicircum 0\$. Remarkably, the GNN families may use arbitrary real weights and a wide class of activation functions that includes the standard ReLU, logistic "sigmoid", and hyperbolic tangent functions. If the GNNs are allowed to use random initialisation and global readout (both standard features of GNNs widely used in practice), they can compute exactly the same queries as bounded depth Boolean circuits with threshold gates, that is, exactly the queries in \$\textbackslash text\{TC\}\textasciicircum 0\$. Moreover, we show that queries computable by a single GNN with piecewise linear activations and rational weights are definable in GFO+C without built-in relations. Therefore, they are contained in uniform \$\textbackslash text\{TC\}\textasciicircum 0\$.},
   keywords = {Computer Science - Computational Complexity,Computer Science - Logic in Computer Science,Computer Science - Machine Learning},
   file = {/homes/biertank/lukas/Zotero/storage/VW2JXNLZ/Grohe - 2024 - The Descriptive Complexity of Graph Neural Networks.pdf;/homes/biertank/lukas/Zotero/storage/XK9N9R4T/2303.html}
-}
-
-@inproceedings{groheLogicGraphNeural2021,
-  title = {The Logic of Graph Neural Networks},
-  booktitle = {36th Annual {{ACM}}/{{IEEE}} Symposium on Logic in Computer Science ({{LICS}} 2021)},
-  author = {Grohe, Martin},
-  date = {2021},
-  pages = {1--17},
-  publisher = {IEEE},
-  doi = {10.1109/LICS52264.2021.9470677}
 }
 
 @online{groheLogicGraphNeural2022,
@@ -628,7 +619,7 @@
   url = {https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.SAT.2023.14},
   urldate = {2026-08-26},
   isbn = {978-3-95977-286-0},
-  keywords = {dynamic symmetry breaking,Earth-Moon problem,Kuratowski’s theorem,order dimension,planarity test,SAT modulo Symmetry (SMS),Schnyder’s theorem,Turán’s theorem,universal point set},
+  keywords = {dynamic symmetry breaking,Earth-Moon problem,graph-theory,order dimension,Schnyder’s theorem,symbolic,universal point set},
   file = {/homes/biertank/lukas/Zotero/storage/CTH7ZL2X/Kirchweger et al. - 2023 - SAT-Based Generation of Planar Graphs.pdf;/homes/biertank/lukas/Zotero/storage/MU7WSKLZ/LIPIcs.SAT.2023.html}
 }
 
@@ -675,6 +666,7 @@
   urldate = {2026-06-04},
   eid = {ORNL/TM--2016/3, 1339361},
   langid = {english},
+  keywords = {survey},
   file = {/homes/biertank/lukas/Zotero/storage/6ICW6XZN/Lim et al. - 2016 - Survey of Approaches to Generate Realistic Synthetic Graphs.pdf}
 }
 
@@ -705,7 +697,7 @@
   urldate = {2026-06-19},
   abstract = {Despite recent progress in Graph Neural Networks (GNNs), explaining predictions made by GNNs remains a challenging open problem. The leading method independently addresses the local explanations (i.e., important subgraph structure and node features) to interpret why a GNN model makes the prediction for a single instance, e.g. a node or a graph. As a result, the explanation generated is painstakingly customized for each instance. The unique explanation interpreting each instance independently is not sufficient to provide a global understanding of the learned GNN model, leading to a lack of generalizability and hindering it from being used in the inductive setting. Besides, as it is designed for explaining a single instance, it is challenging to explain a set of instances naturally (e.g., graphs of a given class). In this study, we address these key challenges and propose PGExplainer, a parameterized explainer for GNNs. PGExplainer adopts a deep neural network to parameterize the generation process of explanations, which enables PGExplainer a natural approach to explaining multiple instances collectively. Compared to the existing work, PGExplainer has better generalization ability and can be utilized in an inductive setting easily. Experiments on both synthetic and real-life datasets show highly competitive performance with up to 24.7\textbackslash\% relative improvement in AUC on explaining graph classification over the leading baseline.},
   pubstate = {prepublished},
-  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning,explainability},
   file = {/homes/biertank/lukas/Zotero/storage/HIUINYDN/Luo et al. - 2020 - Parameterized Explainer for Graph Neural Network.pdf;/homes/biertank/lukas/Zotero/storage/2RK2MCS3/2011.html}
 }
 
@@ -731,6 +723,7 @@
   doi = {10.48550/arxiv.2406.17341},
   abstract = {Graph diffusion models have emerged as state-of-the-art techniques in graph generation; yet, integrating domain knowledge into these models remains challenging. Domain knowledge is particularly important in real-world scenarios, where invalid generated graphs hinder deployment in practical applications. Unconstrained and conditioned graph diffusion models fail to guarantee such domain-specific structural properties. We present ConStruct, a novel framework that enables graph diffusion models to incorporate hard constraints on specific properties, such as planarity or acyclicity. Our approach ensures that the sampled graphs remain within the domain of graphs that satisfy the specified property throughout the entire trajectory in both the forward and reverse processes. This is achieved by introducing an edge-absorbing noise model and a new projector operator. ConStruct demonstrates versatility across several structural and edge-deletion invariant constraints and achieves state-of-the-art performance for both synthetic benchmarks and attributed real-world datasets. For example, by incorporating planarity constraints in digital pathology graph datasets, the proposed method outperforms existing baselines, improving data validity by up to 71.1 percentage points.},
   langid = {english},
+  keywords = {causality,generation},
   file = {/homes/biertank/lukas/Zotero/storage/PDLW884Q/Madeira et al. - Generative Modelling of Structurally Constrained Graphs.pdf}
 }
 
@@ -787,6 +780,7 @@
   bookauthor = {Faulon, Jean-Loup and Bender, Andreas},
   isbn = {978-1-4200-8292-0 978-1-4200-8299-9},
   langid = {english},
+  keywords = {generation},
   file = {/homes/biertank/lukas/Zotero/storage/KB4QPAXZ/Meringer - 2010 - Structure Enumeration and Sampling.pdf}
 }
 
@@ -795,6 +789,7 @@
   author = {Müller, Peter and Faber, Lukas and Martinkus, Karolis and Wattenhofer, Roger},
   abstract = {We propose a new graph model, GraphChef, that enables us to understand graph datasets as a whole. Given a dataset, GraphChef returns a set of rules (a recipe) that describes each class in the dataset. Existing GNNs and explanation methods reason on individual graphs not on the entire dataset. GraphChef uses decision trees to build recipes that are understandable by humans. We show how to compute decision trees in the message passing framework in order to create GraphChef. We also present a new pruning method to produce small and easy to digest trees. In the experiments, we present and analyze GraphChef’s recipes for Reddit-Binary, MUTAG, BA-2Motifs, BA-Shapes, Tree-Cycle, and Tree-Grid. We verify the correctness of the discovered recipes against the datasets’ ground truth.},
   langid = {english},
+  keywords = {explainability},
   file = {/homes/biertank/lukas/Zotero/storage/U4SLWA2K/Müller et al. - GraphChef Learning the Recipe of Your Dataset.pdf}
 }
 
@@ -832,18 +827,8 @@
   eventtitle = {{{KDD}} '22: {{The}} 28th {{ACM SIGKDD Conference}} on {{Knowledge Discovery}} and {{Data Mining}}},
   isbn = {978-1-4503-9385-0},
   langid = {english},
+  keywords = {kdd},
   file = {/homes/biertank/lukas/Zotero/storage/75M6CCF7/Palowitch et al. - 2022 - GraphWorld Fake Graphs Bring Real Insights for GNNs.pdf}
-}
-
-@article{palowitchRobustSyntheticGNN,
-  title = {Robust {{Synthetic GNN Benchmarks}} with {{GraphWorld}}},
-  author = {Palowitch, John and Tsitsulin, Anton and Mayer, Brandon and Perozzi, Bryan},
-  journaltitle = {Proceedings of the 28th ACM SIGKDD Conference on Knowledge Discovery and Data Mining},
-  shortjournal = {Proc. 28th ACM SIGKDD Conf. Knowl. Discov. Data Min.},
-  doi = {10.1145/3534678.3539203},
-  abstract = {Despite advances in GNNs, only a small number of datasets are used to evaluate new models. This continued reliance on a handful of datasets provides minimal insight into the performance differences between models, and is especially challenging for industrial practitioners who are likely to have datasets which are very different from academic benchmarks. In this work we introduce GraphWorld, a novel methodology for benchmarking GNN models on an arbitrarily-diverse population of synthetic graphs for any GNN task. We present insights from GraphWorld experiments regarding the performance characteristics of eleven GNN models over millions of benchmark datasets. Using GraphWorld, we also are able to study in-detail the relationship between graph properties and task performance metrics, which is nearly impossible with the classic collection of real-world benchmarks.},
-  langid = {english},
-  file = {/homes/biertank/lukas/Zotero/storage/L8755U34/Palowitch et al. - Robust Synthetic GNN Benchmarks with GraphWorld.pdf}
 }
 
 @online{proszewskaBXAICDatasetBenchmarking2025,
@@ -859,7 +844,7 @@
   urldate = {2026-06-11},
   abstract = {Understanding the reasoning behind deep learning model predictions is crucial in cheminformatics and drug discovery, where molecular design determines their properties. However, current evaluation frameworks for Explainable AI (XAI) in this domain often rely on artificial datasets or simplified tasks, employing dataderived metrics that fail to capture the complexity of real-world scenarios and lack a direct link to explanation faithfulness. To address this, we introduce B-XAIC, a novel benchmark constructed from real-world molecular data and diverse tasks with known ground-truth rationales for assigned labels. Through a comprehensive evaluation using B-XAIC, we reveal limitations of existing XAI methods for Graph Neural Networks (GNNs) in the molecular domain. This benchmark provides a valuable resource for gaining deeper insights into the faithfulness of XAI, facilitating the development of more reliable and interpretable models.},
   pubstate = {prepublished},
-  keywords = {Computer Science - Computational Engineering Finance and Science,Computer Science - Machine Learning},
+  keywords = {benchmark,Computer Science - Computational Engineering Finance and Science,Computer Science - Machine Learning,explainability},
   file = {/homes/biertank/lukas/Zotero/storage/GQIC24X4/Proszewska et al. - 2025 - B-XAIC Dataset Benchmarking Explainable AI for Graph Neural Networks Using Chemical Data.pdf}
 }
 
@@ -872,6 +857,7 @@
   doi = {10.52202/085713-3873},
   abstract = {Graphs are complex, non-Euclidean structures that require specialized models, such as Graph Neural Networks (GNNs), Graph Transformers, or kernel-based approaches, to effectively capture their relational patterns. This inherent complexity makes explaining GNNs decisions particularly challenging. Most existing explainable AI (XAI) methods for GNNs focus on identifying influential nodes or extracting subgraphs that highlight relevant motifs. However, these approaches often fall short of clarifying how such elements contribute to the final prediction. To overcome this limitation, logic-based explanations aim to derive explicit logical rules that reflect the model’s decision-making process. Current logic-based methods are limited to post-hoc analyzes and are predominantly applied to graph classification, leaving a significant gap in intrinsically explainable GNN architectures. In this paper, we explore the potential of integrating logic reasoning directly into graph learning. We introduce LogiX-GIN, a novel, self-explainable GNN architecture that incorporates logic layers to produce interpretable logical rules as part of the learning process. Unlike post-hoc methods, LogiX-GIN provides faithful, transparent, and inherently interpretable explanations aligned with the model’s internal computations. We evaluate LogiX-GIN across several graph-based tasks and show that it achieves competitive predictive performance while delivering clear, logic-based insights into its decision-making process.},
   langid = {english},
+  keywords = {explainability,neurips},
   file = {/homes/biertank/lukas/Zotero/storage/IWTK5QYW/Ragno et al. - On Logic-based Self-Explainable Graph Neural Networks.pdf}
 }
 
@@ -894,7 +880,8 @@
 @online{SATModuloSymmetries,
   title = {{{SAT Modulo Symmetries}} for {{Graph Generation}} and {{Enumeration}} | {{ACM Transactions}} on {{Computational Logic}}},
   url = {https://dl.acm.org/doi/10.1145/3670405},
-  urldate = {2026-08-26}
+  urldate = {2026-08-26},
+  keywords = {generation}
 }
 
 @article{schieberQuantificationNetworkStructural2017,
@@ -944,6 +931,7 @@
   author = {Szeider, Stefan},
   abstract = {The generation of combinatorial objects with a given property is a fundamental task in discrete mathematics and computer science. The combinatorial explosion of candidate objects renders simple generate-and-test approaches infeasible. SAT-based synthesis methods offer an alternative, but they require effective symmetry breaking to prevent the solver from exploring isomorphic parts of the search space. This paper surveys SAT Modulo Symmetries (SMS), a framework that integrates dynamic symmetry breaking directly into a Conflict-Driven Clause Learning (CDCL) SAT solver. The approach relies on a propagator that checks for the canonicity of partially defined objects during the search. If a partial assignment cannot be extended to a canonical object, the propagator provides a learned clause to the solver, pruning the corresponding part of the search tree. We outline the core components of the SMS framework and review its application to several open problems in areas such as extremal graph theory, Ramsey theory, matroid theory, and quantum foundations, where it has been used to obtain new mathematical results.},
   langid = {english},
+  keywords = {survey},
   file = {/homes/biertank/lukas/Zotero/storage/3G4EX7PV/Szeider - SAT Modulo Symmetries A Survey.pdf}
 }
 
@@ -959,7 +947,7 @@
   urldate = {2026-09-08},
   abstract = {Circuit localization is a mechanistic interpretability task whose goal is to identify a sparse subgraph of a transformer's computation graph sufficient to reproduce a particular behavior. Most established methods localize circuits independently for each model--task pair. We instead frame circuit localization as a graph machine learning problem in which the edges of a computation graph represent computational pathways, and graph neural networks (GNNs) model interactions among these pathways. We introduce Graph Circuit Learning (GCL), a supervised, amortized framework that trains a GNN across multiple model--task pairs and applies it to unseen cases. To provide sufficient data, we augment the InterpBench benchmark with additional cases derived from the TracrBench programs. Of the 14 evaluated GCL configurations, the highest scored a median edge AUROC of \$0.902\$ (interquartile interval \$[0.861, 0.942]\$) on the 16 original held-out InterpBench cases. This is close to the published InterpBench median of \$0.910\$ for EAP-IG while remaining below ACDC's \$0.959\$. Removing all message-passing edges reduces the median to \$0.825\$. We also adapt PGExplainer, a GNN explainability method, to circuit localization, obtaining a median edge AUROC of \$0.858\$ on the same cases. These preliminary results suggest that graph machine learning offers a natural and potentially powerful perspective on circuit localization, and we hope this perspective encourages closer exchange between the two communities.},
   pubstate = {prepublished},
-  keywords = {Computer Science - Machine Learning},
+  keywords = {Computer Science - Machine Learning,explainability},
   file = {/homes/biertank/lukas/Zotero/storage/8YA7YGEZ/Tan et al. - 2026 - Can Graph Learning Learn Circuits.pdf;/homes/biertank/lukas/Zotero/storage/PJIG65PP/2608.html}
 }
 
@@ -978,6 +966,7 @@
   urldate = {2026-06-04},
   abstract = {We consider the problem of generating uniformly random graphs from a constrained distribution. A graph is valid if it obeys certain constraints such as a given number of nodes, edges, k-stars or degree sequence, and each graph must occur with equal probability. A typical application is to confirm the correctness of a model by repeated sampling and comparing statistical properties against empirical data. Markov Chain Monte Carlo (MCMC) algorithms are often used, but have certain difficulties such as the inability to search the space of all possible valid graphs. We propose an improved algorithm which overcomes these difficulties. Although each individual iteration of the MCMC algorithm takes longer, we obtain better coverage of the search space in the same amount of time. This leads to better estimates of various quantities such as the expected number of transitive triads given the constraints. The algorithm should be of general interest with many possible applications, including the world wide web, biological, and social networks.},
   langid = {english},
+  keywords = {generation},
   file = {/homes/biertank/lukas/Zotero/storage/2PESAXPW/Tao - 2016 - An improved MCMC algorithm for generating random graphs from constrained distributions.pdf}
 }
 
@@ -997,6 +986,7 @@
   abstract = {High performance graph processing poses significant challenges for both algorithm and platform designers due to the large performance variability it exhibits: performance depends on the algorithm, the dataset, and the (hardware/software) platform. Traditionally, performance variability is tackled by extensive benchmarking, modeling, and, eventually, better or smarter algorithms. Our own research into the impact of datasets on the performance of graph algorithms has convinced us that such extensive benchmarking is very difficult for graph processing simply because we lack input data: the public datasets and graph generation tools currently available are insufficient for a systematic investigation of the impact of different graph properties. In this work we propose to alleviate this problem by using evolutionary computing as a method to generate graphs. Our goal is allow users to request graphs with a given set of properties (e.g., number of vertices, number of edges, degree distribution), and enable the generator to evolve graphs until they satisfy the request. Such a fine-grain, flexible exploration of graphs and their properties will finally enable a statistical take on performance analysis and modeling for graph processing. To this end, our work-in-progress paper presents the design of our generator, discusses the challenges and trade-offs to be encountered, and reveals our preliminary results.},
   isbn = {978-3-319-58942-8 978-3-319-58943-5},
   langid = {english},
+  keywords = {benchmark,generation},
   file = {/homes/biertank/lukas/Zotero/storage/6JF5LWKH/Verstraaten et al. - 2017 - Synthetic Graph Generation for Systematic Exploration of Graph Structural Properties.pdf}
 }
 
@@ -1014,7 +1004,7 @@
   abstract = {This work introduces DiGress, a discrete denoising diffusion model for generating graphs with categorical node and edge attributes. Our model utilizes a discrete diffusion process that progressively edits graphs with noise, through the process of adding or removing edges and changing the categories. A graph transformer network is trained to revert this process, simplifying the problem of distribution learning over graphs into a sequence of node and edge classification tasks. We further improve sample quality by introducing a Markovian noise model that preserves the marginal distribution of node and edge types during diffusion, and by incorporating auxiliary graph-theoretic features. A procedure for conditioning the generation on graph-level features is also proposed. DiGress achieves state-of-theart performance on molecular and non-molecular datasets, with up to 3x validity improvement on a planar graph dataset. It is also the first model to scale to the large GuacaMol dataset containing 1.3M drug-like molecules without the use of molecule-specific representations.},
   langid = {english},
   pubstate = {prepublished},
-  keywords = {Computer Science - Machine Learning},
+  keywords = {Computer Science - Machine Learning,generation},
   file = {/homes/biertank/lukas/Zotero/storage/X7NM22YU/Vignac et al. - 2023 - DiGress Discrete Denoising diffusion for graph generation.pdf}
 }
 
@@ -1030,7 +1020,7 @@
   urldate = {2026-07-21},
   abstract = {Recent work in graph models has found that probabilistic hyperedge replacement grammars (HRGs) can be extracted from graphs and used to generate new random graphs with graph properties and substructures close to the original. In this paper, we show how to add latent variables to the model, trained using Expectation-Maximization, to generate still better graphs, that is, ones that generalize better to the test data. We evaluate the new method by separating training and test graphs, building the model on the former and measuring the likelihood of the latter, as a more stringent test of how well the model can generalize to new graphs. On this metric, we find that our latent-variable HRGs consistently outperform several existing graph models and provide interesting insights into the building blocks of real world networks.},
   pubstate = {prepublished},
-  keywords = {Computer Science - Artificial Intelligence,Computer Science - Social and Information Networks},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Social and Information Networks,generation},
   file = {/homes/biertank/lukas/Zotero/storage/BMKJMDRD/Wang et al. - 2018 - Growing Better Graphs With Latent-Variable Probabilistic Graph Grammars.pdf;/homes/biertank/lukas/Zotero/storage/3JM94GX5/1806.html}
 }
 
@@ -1049,6 +1039,7 @@
   urldate = {2026-06-11},
   abstract = {Graph Neural Networks (GNNs) have gained considerable attention in recent years. Despite the surge in innovative GNN architecture designs, research heavily relies on the same 5-10 benchmark datasets for validation. To address this limitation, several generative graph models like ALBTER or GenCAT have emerged, aiming to fix this problem with synthetic graph datasets. However, these models often struggle to mirror the GNN performance of the original graphs. In this work, we present SkyMap, a generative model for labeled attributed graphs with a fine-grained control over graph topology and feature distribution parameters. We show that our model is able to consistently replicate the learnability of graphs on graph convolutional, attention, and isomorphism networks better (64\% lower Wasserstein distance) than ALBTER and GenCAT. Further, we prove that by randomly sampling the input parameters of SkyMap, graph dataset constellations can be created that cover a large parametric space, hence making a significant stride in crafting synthetic datasets tailored for GNN evaluation and benchmarking, as we illustrate through a performance comparison between a GNN and a multilayer perceptron.},
   langid = {english},
+  keywords = {benchmark,generation},
   file = {/homes/biertank/lukas/Zotero/storage/CH5JYTVZ/Wassington et al. - 2024 - SkyMap a generative graph model for GNN benchmarking.pdf}
 }
 
@@ -1065,7 +1056,7 @@
   abstract = {Symmetry plays a major role in subgraph matching both in the description of the graphs in question and in how it confounds the search process. This work addresses how to quantify these effects and how to use symmetries to increase the efficiency of subgraph isomorphism algorithms. We introduce rigorous definitions of structural equivalence and establish conditions for when it can be safely used to generate more solutions. We illustrate how to adapt standard search routines to utilize these symmetries to accelerate search and compactly describe the solution space. We then adapt a state-of-the-art solver and perform a comprehensive series of tests to demonstrate these methods’ efficacy on a standard benchmark set. We extend these methods to multiplex graphs and present results on large multiplex networks drawn from transportation systems, social media, adversarial attacks, and knowledge graphs.},
   langid = {english},
   pubstate = {prepublished},
-  keywords = {Computer Science - Data Structures and Algorithms},
+  keywords = {causality,Computer Science - Data Structures and Algorithms,robustness},
   file = {/homes/biertank/lukas/Zotero/storage/QBJMC539/Yang et al. - 2023 - Structural Equivalence in Subgraph Matching.pdf}
 }
 
@@ -1082,6 +1073,7 @@
   eventtitle = {Proceedings of the 2009 {{SIAM International Conference}} on {{Data Mining}}},
   isbn = {978-0-89871-682-5 978-1-61197-279-5},
   langid = {english},
+  keywords = {generation},
   file = {/homes/biertank/lukas/Zotero/storage/7TUPKP5G/Ying and Wu - 2009 - Graph Generation with Prescribed Feature Constraints.pdf}
 }
 
@@ -1093,6 +1085,7 @@
   doi = {10.1007/s00493-010-2496-0},
   abstract = {For every fixed graph H and every fixed 0 {$<$} α {$<$} 1, we show that if a graph G has the property that all subsets of size αn contain the “correct” number of copies of H one would expect to find in the random graph G(n, p) then G behaves like the random graph G(n, p); that is, it is p-quasi-random in the sense of Chung, Graham, and Wilson [4]. This solves a conjecture raised by Shapira [8] and solves in a strong sense an open problem of Simonovits and So´s [9].},
   langid = {english},
+  keywords = {generation},
   file = {/homes/biertank/lukas/Zotero/storage/LLGCLGIA/Yuster - Quasi-randomness is determined by the distribution of copies of a ﬁxed graph in equicardinal large s.pdf}
 }
 
