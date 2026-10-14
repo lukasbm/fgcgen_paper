@@ -1,0 +1,17 @@
+ label,score,kind
+ {Control: planted leak},1.0000,control
+ {Tree-Grid},1.0000,synthetic
+ {Tree-Grid (matched)},1.0000,synthetic
+ {BA-MultiShapes},1.0000,synthetic
+ {BA-LRP},1.0000,synthetic
+ {BA-2Motifs},0.9827,synthetic
+ {Tree-Cycle},0.9629,synthetic
+ {Tree-Cycle (matched)},0.9510,synthetic
+ {BA-Community},0.9474,synthetic
+ {Spurious-Motif .90},0.9396,synthetic
+ {BA-Shapes},0.9308,synthetic
+ {ShapeGGen},0.8469,synthetic
+ {ShapeGGen (matched)},0.7866,synthetic
+ {TopoFeature},0.7252,synthetic
+ {Spurious-Motif .33},0.6004,synthetic
+ {Control: random labels},0.5000,control

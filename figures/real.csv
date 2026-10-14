@@ -1,0 +1,17 @@
+ label,score,kind
+ {REDDIT-BINARY},0.8642,real
+ {B-XAIC P},0.8388,real
+ {MUTAG},0.8025,real
+ {B-XAIC rings-count},0.7981,real
+ {TopoFeature (clean)},0.7464,real
+ {B-XAIC indole},0.7086,real
+ {B-XAIC B},0.6947,real
+ {IMDB-BINARY},0.6925,real
+ {PROTEINS},0.6880,real
+ {BBBP},0.6760,real
+ {B-XAIC rings-max},0.6393,real
+ {Toxicophores},0.6179,real
+ {MolHIV},0.5995,real
+ {B-XAIC PAINS},0.5976,real
+ {B-XAIC X},0.5817,real
+ {SST-2},0.5379,real

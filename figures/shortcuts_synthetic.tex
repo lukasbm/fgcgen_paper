@@ -1,0 +1,58 @@
+\documentclass[tikz,border=4pt]{standalone}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.18}
+\begin{document}
+	\IfFileExists{data/synthetic.csv}{\def\csvpath{data/synthetic.csv}}{\def\csvpath{../data/synthetic.csv}}
+	\pgfplotstableread[col sep=comma]{\csvpath}\plotdata
+	\begin{tikzpicture}
+		\begin{axis}[
+			width=7cm, height=7cm,
+			scale only axis,
+			%title={Synthetic benchmarks + controls},
+			%title style={font=\bfseries\small, yshift=3pt},
+			xmin=0.48, xmax=1.13,
+			ymin=0.5, ymax=16.5,
+			y dir=reverse,
+			axis x line*=top,
+			axis y line*=left,
+			y axis line style={draw=none},
+			tick style={draw=none},
+			xtick={0.5,0.6,0.7,0.8,0.9,1},
+			xticklabel style={font=\scriptsize, text=gray!75!black},
+			ytick={1,...,16},
+			yticklabels={Control: planted leak,
+				Tree-Grid,
+				Tree-Grid (matched),
+				BA-MultiShapes,
+				BA-LRP,
+				BA-2Motifs,
+				Tree-Cycle,
+				Tree-Cycle (matched),
+				BA-Community,
+				Spurious-Motif .90,
+				BA-Shapes,
+				ShapeGGen,
+				ShapeGGen (matched),
+				TopoFeature,
+				Spurious-Motif .33,
+				Control: random labels},
+			yticklabel style={font=\scriptsize, anchor=east, xshift=-2pt},
+			xmajorgrids,
+			grid style={gray!15},
+			clip=false,
+			point meta=x,
+			nodes near coords={\pgfmathprintnumber[fixed,precision=2]{\pgfplotspointmeta}},
+			every node near coord/.append style={anchor=west,xshift=3pt,font=\scriptsize,text=black!75}
+			]
+			\pgfplotsinvokeforeach{1,...,16}{
+				\draw[gray!22] (axis cs:0.5,#1) -- (axis cs:1.0,#1);
+			}
+			\draw[red!35,dashed,thin] (axis cs:0.6,0.5) -- (axis cs:0.6,16.5);
+			\addplot[only marks,mark=*,mark size=1.8pt,red!70!black,nodes near coords]
+			table[x=score,y expr=\coordindex+1] {\plotdata};
+			\addplot[only marks,mark=*,mark size=1.9pt,gray!70!black,forget plot]
+			coordinates {(1,1) (0.5,16)};
+		\end{axis}
+	\end{tikzpicture}
+\end{document}

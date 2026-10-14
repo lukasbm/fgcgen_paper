@@ -479,15 +479,15 @@
   file = {/homes/biertank/lukas/Zotero/storage/N9ECL6QH/Azzolin et al. - 2026 - GNN Explanations that do not Explain and How to find Them.pdf}
 }
 
-@article{azzolinRECONSIDERINGFAITHFULNESSREGULAR2025,
-  title = {{{RECONSIDERING FAITHFULNESS IN REGULAR}}, {{SELF-EXPLAINABLE}}, {{AND DOMAIN INVARIANT GNNS}}},
+@article{azzolinReconsideringFaithfulnessRegular2025,
+  title = {Reconsidering {{Faithfulness}} in {{Regular}}, {{Self-Explainable}}, and {{Domain Invariant GNNs}}},
   author = {Azzolin, Steve and Longa, Antonio and Teso, Stefano and Passerini, Andrea},
   date = {2025},
   doi = {10.48550/arxiv.2406.15156},
   abstract = {As Graph Neural Networks (GNNs) become more pervasive, it becomes paramount to build reliable tools for explaining their predictions. A core desideratum is that explanations are faithful, i.e., that they portray an accurate picture of the GNN’s reasoning process. However, a number of different faithfulness metrics exist, begging the question of what is faithfulness exactly and how to achieve it. We make three key contributions. We begin by showing that existing metrics are not interchangeable – i.e., explanations attaining high faithfulness according to one metric may be unfaithful according to others – and can systematically ignore important properties of explanations. We proceed to show that, surprisingly, optimizing for faithfulness is not always a sensible design goal. Specifically, we prove that for injective regular GNN architectures, perfectly faithful explanations are completely uninformative. This does not apply to modular GNNs, such as self-explainable and domain-invariant architectures, prompting us to study the relationship between architectural choices and faithfulness. Finally, we show that faithfulness is tightly linked to out-of-distribution generalization, in that simply ensuring that a GNN can correctly recognize the domain-invariant subgraph, as prescribed by the literature, does not guarantee that it is invariant unless this subgraph is also faithful. The code is publicly available on GitHub1.},
   langid = {english},
   keywords = {causality,explainability,ood},
-  file = {/homes/biertank/lukas/Zotero/storage/A8N8FDN6/Azzolin et al. - 2025 - RECONSIDERING FAITHFULNESS IN REGULAR, SELF-EXPLAINABLE, AND DOMAIN INVARIANT GNNS.pdf}
+  file = {/homes/biertank/lukas/Zotero/storage/A8N8FDN6/Azzolin et al. - 2025 - Reconsidering Faithfulness in Regular, Self-Explainable, and Domain Invariant GNNs.pdf}
 }
 
 @online{azzolinTopologicalSelfExplainableGNNs2025,
@@ -4819,6 +4819,23 @@
   keywords = {explainability}
 }
 
+@online{iordanskiConstructiveGraphTheory2020,
+  title = {Constructive {{Graph Theory}}: {{Generation Methods}}, {{Structure}} and {{Dynamic Characterization}} of {{Closed Classes}} of {{Graphs}} -- {{A}} Survey},
+  shorttitle = {Constructive {{Graph Theory}}},
+  author = {Iordanski, M. A.},
+  date = {2020-11-22},
+  eprint = {2011.10984},
+  eprinttype = {arXiv},
+  eprintclass = {math.CO},
+  doi = {10.48550/arXiv.2011.10984},
+  url = {http://arxiv.org/abs/2011.10984},
+  urldate = {2026-10-14},
+  abstract = {The processes of constructing some graphs from others using binary operations of union with intersection (gluing) are studied. For graph classes closed with respect to gluing operations the elemental and operational bases are introduced. The generating bases together with the system of restrictions on the gluing operation that preserves the characteristic properties of graphs form constructive descriptions of the closed classes of graphs. It is shown that each closed class of graphs has a unique elemental basis and at least one operational basis. A constructive description of a closed class of all graphs and all bases precompletion closed sub-classes of it are considered. For each of them its characteristic properties and a diagram of the inclusion of sub-classes in super classes is given. Constructive descriptions are obtained for some classes of graphs with classical properties. In conclusion, some possible applications of constructive graph theory are discussed.},
+  pubstate = {prepublished},
+  keywords = {Mathematics - Combinatorics},
+  file = {/homes/biertank/lukas/Zotero/storage/94D8KV93/Iordanski - 2020 - Constructive Graph Theory Generation Methods, Structure and Dynamic Characterization of Closed Clas.pdf;/homes/biertank/lukas/Zotero/storage/RA74T54W/2011.html}
+}
+
 @article{itzhackOptimalAlgorithmCounting2007,
   title = {An Optimal Algorithm for Counting Network Motifs},
   author = {Itzhack, Royi and Mogilevski, Yelena and Louzoun, Yoram},
@@ -5586,6 +5603,23 @@
   isbn = {978-3-95977-286-0},
   keywords = {dynamic symmetry breaking,Earth-Moon problem,graph-theory,order dimension,Schnyder’s theorem,symbolic,universal point set},
   file = {/homes/biertank/lukas/Zotero/storage/CTH7ZL2X/Kirchweger et al. - 2023 - SAT-Based Generation of Planar Graphs.pdf;/homes/biertank/lukas/Zotero/storage/MU7WSKLZ/LIPIcs.SAT.2023.html}
+}
+
+@article{kirchwegerSATModuloSymmetries2024,
+  title = {{{SAT Modulo Symmetries}} for {{Graph Generation}} and {{Enumeration}}},
+  author = {Kirchweger, Markus and Szeider, Stefan},
+  date = {2024-07-31},
+  journaltitle = {ACM Transactions on Computational Logic},
+  shortjournal = {ACM Trans. Comput. Log.},
+  volume = {25},
+  number = {3},
+  pages = {18:1--18:30},
+  issn = {1529-3785},
+  doi = {10.1145/3670405},
+  url = {https://dl.acm.org/doi/10.1145/3670405},
+  urldate = {2026-10-14},
+  abstract = {We propose a novel SAT-based approach to graph generation. Our approach utilizes the interaction between a CDCL SAT solver and a special symmetry propagator where the SAT solver runs on an encoding of the desired graph property. The symmetry propagator checks partially generated graphs for minimality with respect to a lexicographic ordering during the solving process. This approach has several advantages over a static symmetry breaking: (i) symmetries are detected early in the generation process, (ii) symmetry breaking is seamlessly integrated into the CDCL procedure, and (iii) the propagator performs a complete symmetry breaking without causing a prohibitively large initial encoding. We instantiate our approach by generating extremal graphs with certain restrictions in terms of forbidden subgraphs and diameter. In particular, we could confirm the Murty–Simon Conjecture (1979) on diameter-2-critical graphs for graphs up to 19 vertices and prove the exact number of Ramsey graphs  \textbackslash (\textbackslash mathcal\{R\}(3,5,n)\textbackslash )  and  \textbackslash (\textbackslash mathcal\{R\}(4,4,n)\textbackslash ) .},
+  file = {/homes/biertank/lukas/Zotero/storage/4P8GFDNL/Kirchweger and Szeider - 2024 - SAT Modulo Symmetries for Graph Generation and Enumeration.pdf}
 }
 
 @inproceedings{kirchwegerSATSolversOpinion2023,
@@ -7067,6 +7101,23 @@
   pubstate = {prepublished},
   keywords = {Computer Science - Machine Learning,Computer Science - Neural and Evolutionary Computing,robustness,Statistics - Machine Learning},
   file = {/homes/biertank/lukas/Zotero/storage/RTR5B666/Madry et al. - 2019 - Towards Deep Learning Models Resistant to Adversar.pdf;/homes/biertank/lukas/Zotero/storage/CIJN3M9W/1706.html}
+}
+
+@online{maekawaGenCATGeneratingAttributed2023,
+  title = {{{GenCAT}}: {{Generating Attributed Graphs}} with {{Controlled Relationships}} between {{Classes}}, {{Attributes}}, and {{Topology}}},
+  shorttitle = {{{GenCAT}}},
+  author = {Maekawa, Seiji and Sasaki, Yuya and Fletcher, George and Onizuka, Makoto},
+  date = {2023-02-13},
+  eprint = {2109.04639},
+  eprinttype = {arXiv},
+  eprintclass = {cs.SI},
+  doi = {10.48550/arXiv.2109.04639},
+  url = {http://arxiv.org/abs/2109.04639},
+  urldate = {2026-10-14},
+  abstract = {Generating large synthetic attributed graphs with node labels is an important task to support various experimental studies for graph analysis methods. Existing graph generators fail to simultaneously simulate the relationships between labels, attributes, and topology which real-world graphs exhibit. Motivated by this limitation, we propose GenCAT, an attributed graph generator for controlling those relationships, which has the following advantages. (i) GenCAT generates graphs with user-specified node degrees and flexibly controls the relationship between nodes and labels by incorporating the connection proportion for each node to classes. (ii) Generated attribute values follow user-specified distributions, and users can flexibly control the correlation between the attributes and labels. (iii) Graph generation scales linearly to the number of edges. GenCAT is the first generator to support all three of these practical features. Through extensive experiments, we demonstrate that GenCAT can efficiently generate high-quality complex attributed graphs with user-controlled relationships between labels, attributes, and topology.},
+  pubstate = {prepublished},
+  keywords = {Computer Science - Social and Information Networks},
+  file = {/homes/biertank/lukas/Zotero/storage/Y6L9QIYF/Maekawa et al. - 2023 - GenCAT Generating Attributed Graphs with Controlled Relationships between Classes, Attributes, and.pdf;/homes/biertank/lukas/Zotero/storage/65SL8DQE/2109.html}
 }
 
 @artwork{maEnglishTheTripletlossincosinesimilarity2020,
@@ -8950,13 +9001,6 @@
   pubstate = {prepublished},
   keywords = {Computer Science - Machine Learning,Computer Science - Social and Information Networks,explainability,Statistics - Machine Learning},
   file = {/homes/biertank/lukas/Zotero/storage/533G74CI/Sanchez-Martin et al. - 2024 - Improving the interpretability of GNN predictions through conformal-based graph sparsification.pdf}
-}
-
-@online{SATModuloSymmetries,
-  title = {{{SAT Modulo Symmetries}} for {{Graph Generation}} and {{Enumeration}} | {{ACM Transactions}} on {{Computational Logic}}},
-  url = {https://dl.acm.org/doi/10.1145/3670405},
-  urldate = {2026-08-26},
-  keywords = {generation}
 }
 
 @online{satoRandomFeaturesStrengthen2021,
@@ -10854,6 +10898,22 @@
   pubstate = {prepublished},
   keywords = {Computer Science - Computer Vision and Pattern Recognition,robustness},
   file = {/homes/biertank/lukas/Zotero/storage/8QN3NFSB/Wang et al. - 2017 - Deep Metric Learning with Angular Loss.pdf}
+}
+
+@online{wangEmpiricalStudyRealized2024,
+  title = {An {{Empirical Study}} of {{Realized GNN Expressiveness}}},
+  author = {Wang, Yanbo and Zhang, Muhan},
+  date = {2024-06-01},
+  eprint = {2304.07702},
+  eprinttype = {arXiv},
+  eprintclass = {cs.LG},
+  doi = {10.48550/arXiv.2304.07702},
+  url = {http://arxiv.org/abs/2304.07702},
+  urldate = {2026-10-14},
+  abstract = {Research on the theoretical expressiveness of Graph Neural Networks (GNNs) has developed rapidly, and many methods have been proposed to enhance the expressiveness. However, most methods do not have a uniform expressiveness measure except for a few that strictly follow the \$k\$-dimensional Weisfeiler-Lehman (\$k\$-WL) test hierarchy, leading to difficulties in quantitatively comparing their expressiveness. Previous research has attempted to use datasets for measurement, but facing problems with difficulty (any model surpassing 1-WL has nearly 100\% accuracy), granularity (models tend to be either 100\% correct or near random guess), and scale (only several essentially different graphs involved). To address these limitations, we study the realized expressive power that a practical model instance can achieve using a novel expressiveness dataset, BREC, which poses greater difficulty (with up to 4-WL-indistinguishable graphs), finer granularity (enabling comparison of models between 1-WL and 3-WL), a larger scale (consisting of 800 1-WL-indistinguishable graphs that are non-isomorphic to each other). We synthetically test 23 models with higher-than-1-WL expressiveness on BREC. Our experiment gives the first thorough measurement of the realized expressiveness of those state-of-the-art beyond-1-WL GNN models and reveals the gap between theoretical and realized expressiveness. Dataset and evaluation codes are released at: https://github.com/GraphPKU/BREC.},
+  pubstate = {prepublished},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning},
+  file = {/homes/biertank/lukas/Zotero/storage/NAGKZD6P/Wang and Zhang - 2024 - An Empirical Study of Realized GNN Expressiveness.pdf;/homes/biertank/lukas/Zotero/storage/4MMYT7HP/2304.html}
 }
 
 @online{wangExploringCLIPAssessing2022,

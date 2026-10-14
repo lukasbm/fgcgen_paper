@@ -1,3 +1,4 @@
+% !TeX TXS-program:bibliography = txs:///biber
 \documentclass[11pt,twocolumn]{article}
 
 \usepackage[T1]{fontenc}
@@ -5,6 +6,10 @@
 \usepackage{amsmath,amssymb}
 \usepackage{hyperref}
 \usepackage{standalone}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{tikz}
 \usepackage[backend=biber,style=ieee]{biblatex}
 \addbibresource{library.bib}
@@ -23,9 +28,7 @@
 
 
 \title{FGCGen: Generating Synthetic Graph Datasets for Structural Rule Discovery}
-\author{
-	Lukas Böhm
-}
+\author{Lukas Böhm}
 \date{\today}
 
 \begin{document}
@@ -34,11 +37,10 @@
 \begin{abstract}
 Understanding the reasoning behind decisions of Graph Neural Networks (GNNs) is crucial for trustworthy machine learning.
 The novel field of Structural Rule Learning aims to output global and interpretable logical rules where current explainers often just yield a mask highlighting salient subgraphs for every single instance, often omitting crucial global information or model-wide patterns.
-Existing graph benchmark datasets either lack a known ground-truth rule or are designed in a contrived way that makes them unsuitable for rule discovery.  % mention statistical shortcuts already?
+Existing graph benchmark datasets either lack a known ground-truth rule or are designed in a contrived way that makes them unsuitable for rule discovery.
 We identify multiple such failure cases in all existing benchmark datasets and present the \emph{Forbidden Graph Characterization Generator} (FGCGen) as a solution.
-Given forbidden subgraphs, optional imposed fragments, graph order, and a density band or degree cap, FGCGen grows connected valid graphs with a particle beam, and MCMC annealing.
-To ensure identifiability of the dataset rule a thightly defined decision boundary is required.
-We present the generation of suitable negatives as a optimization problem that has to balance the number of edits and violating patterns.
+Given forbidden subgraphs, optional imposed fragments, graph order, and a density band or degree cap, FGCGen generates connected valid graphs.
+Negatives have to remain close to a tightly defined decision boundary to ensure identifiability of the dataset rule.
 Finally we show empirically that most current models are unable to detect the defining patterns and existing explainers cannot reliably highlight the fundamental rule.
 \end{abstract}
 
@@ -61,17 +63,13 @@ Synthetic benchmarks are attractive because their labels and explanations can be
 \begin{figure}[ht]
 	\centering
 	\includestandalone[width=\linewidth]{figures/positioning}
-	\caption{Overview of graph learning approaches.}
+	\caption{Overview of graph learning approaches. As complexity and expressivety increase, the realizable graph order decreases}
 	\label{fig:overview}
 \end{figure}
 
 
 Creating such data is hard because structural graph classes occupy highly constrained regions of graph space. Blind (rejection) sampling can make valid graphs vanishingly rare, while independently generated class pools can be separated by density, degree, construction artifacts, or a wide edit margin.
 
-
-
-% common dataset problems
- \cite{faberWhenComparingGround2021}
 
 
 
@@ -88,7 +86,59 @@ Creating such data is hard because structural graph classes occupy highly constr
 
 \section{Related Work}
 
+\subsection{Benchmarks for Graph Learning and Explanation}
 
+Tree-Cycles, Tree-Grid, BA-Shapes, and BA-2Motifs are the most common and frequently used synthetic benchmark datasets in graph explainability research \cite{TODO the mentioned datasets}. They define a (binary) graph classification task based on the presence of motifs appended to a random background graph. 
+% Background graph is not controlled so pattern might appear accidentally.
+ShapeGGen substantially improves tis design with topology, homophily and a node classification target \cite{TODO}.
+
+
+Another category of synthetic datasets probe the expressive power of GNNs: EXP presents pairs of 2-WL distinguishable graphs \cite{abboudSurprisingPowerGraph2021}, BREC and families of strongly regular graphs span even more WL-levels  \cite{wangEmpiricalStudyRealized2024, balcilarBreakingLimitsMessage2021}.
+These ask whether an architecture can distinguish specific non-isomorphic pairs, while we are interested in detecting discriminative patterns.
+The adjacent question of counting relevant patterns further separates GNN architectures based on their expressiveness \cite{chenCanGraphNeural2020}.
+
+GraphWorld samples broad populations of synthetic tasks to study how model rankings change across generator parameters. Performance changed significantly once the synthetic graphs left the region of popular academic benchmarks \cite{TODO}.
+Most benchmarks have no or only trivial edge or node labels that are at best added separately through tools like ALBTER \cite{TODO} or GenCAT \cite{maekawaGenCATGeneratingAttributed2023}.
+SkyMap jointly generates topology and labelling, thereby eliminating common class imbalance and feature distribution issues \cite{wassingtonSkyMapGenerativeGraph2024}.
+
+% TODO: some words on Cora, OGB, MUTAG, and other commonly used real datasets? ... not really, they don't have ground truth.
+
+
+\subsection{Global Explanations}
+
+% TODO: rewrite to cite azzolin 2025 and 2026 here!
+As opposed to instance-wise local explanations, a global explainers tries to explain the entire dataset (or model) directly, which is necessary for rule recovery.
+GraphFramEx argues that explanation evaluation must include necessity, sufficiency, stability, runtime, and simple baselines rather than only mask overlap \cite{TODO}.
+Formal work further shows that minimal subgraph explanations correspond to logical prime implicants only under restricted conditions \cite{weinbauerPrimeImplicantExplanations2025}.
+Thus high fidelity to a predictor is not equivalent to recovering the data rule. 
+Model-level explainers usually try to disentangle a concept bottleneck layer to retrieve reusable recipes made from a conjunction of patterns \cite{azzolinGlobalExplainabilityGNNs2023, armgaanGRAPHTRAILTranslatingGNN, gengLogicXGNNGroundedLogical2026, ragnoLogicbasedSelfExplainableGraph2025} while other approaches directly try to distill the rule into a decision tree \cite{mullerGraphChefLearningRecipe, pluskaLogicalDistillationGraph2024}.
+
+\subsection{Constrained Structural Generation}
+
+In classical graph theory many properties admit constructive generators: co-trees for cographs \cite{TODO}, partial elimination orderings for chordal graphs \cite{TODO}, partial cube expansion for median graphs \cite{ovchinnikovPartialCubesStructures2008} and more general approaches \cite{iordanskiConstructiveGraphTheory2020}.
+While those are convenient and fast (usually polynomial time), they lack statistical control and don't provide a way to expose suitable negatives.
+
+Rejection based random graph sampling is simple and reliable but for many hereditary classes the valid members become exponentially rare, especially among larger densities and orders \cite{friezeIntroductionRandomGraphs2015}.
+Modeling the generation as a chain of edge toggles can work using MCMC-based approaches, but is often plagued by bad mixing performance due to the non-ergodic nature of most properties \cite{TODO}. % TODO: wang landau, etc.. 
+% Graphons describe limits of dense graph sequences rather than provide an exact finite-graph membership oracle \cite{lovaszLargeNetworksGraph2012}
+Exponential random graph models can encode selected statistics, but forbidden patterns can only be approached asymptotically \cite{TODO}.
+
+Learned Generators, including diffusion models, require exactly the training data we aim to generate \cite{vignacDiGressDiscreteDenoising2023}.
+
+% TODO: graph grammars including Hyperedge-replacement grammars 
+
+The most promising branch for precise property-adhering graph generation are SAT based approaches.
+The SAT Modulo Symmetries framework 
+\cite{kirchwegerSATModuloSymmetries2024, janotaBreakingSymmetriesQuantified2025, kirchwegerSATBasedGenerationPlanar2023, kirchwegerCoCertificateLearningSAT2023}
+
+
+\paragraph{Contributions}
+This paper makes four contributions.
+First the shortcomings of existing datasets are defined and the requirements and interfaces for a reliable generator are defined.
+Second, we develop FGCGen. A precise generator for properties defined through ordinary and induced subgraph patterns. This is released as a software package, together with a dataset suite of selected properties.
+Third, we generate suitable boundary-close negatives.
+Lastly, the datasets are evaluated on state-of-the-art GNNs and Explainers.
+% TODO: mention also that we found witness floors, mandatory hubs (cographs) and overrigid classes?
 
 \section{Failure Modes for Synthetic Graph Datasets}
 % TODO: introduce notation here and then make the failure modes more formal!!!
@@ -101,6 +151,27 @@ Throughout this paper in-property graphs satisfy $P(G)=1$ and negatives satisfy 
 To constraint the set of valid negative to be boundary-close, we require negatives to not leave $\mathcal{G}$, just the class defined by $P$.
 
 The generator supports two containment relations. We say $H \subg G$ is the ordinary monomorphism: an injective edge-preserving map where additional host edges among mapped vertices are allowed. $H \subgind G$ defines the induced subgraph isomorphism, a map that also preserves nonedges.
+
+
+
+% common dataset problems
+\cite{faberWhenComparingGround2021}
+
+
+\begin{figure*}[t]
+	\centering
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{\includestandalone{figures/shortcuts_synthetic}}
+		\caption{Synthetic benchmarks and controls.}\label{fig:syn}
+	\end{subfigure}\hfill
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{\includestandalone{figures/shortcuts_real}}
+		\caption{Real data and corrected reductions.}\label{fig:real}
+	\end{subfigure}
+	\caption{Structural-feature shortcut audit.}\label{fig:shortcuts}
+\end{figure*}
 
 
 
