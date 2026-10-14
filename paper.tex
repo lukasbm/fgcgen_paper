@@ -71,7 +71,7 @@ On the other end of the spectrum, extremal graph search and conjecturing build e
 Systems like \cite{devillezPHOEGHelpsObtain2019, davilaAutomatedConjecturingTxgraffiti2025, hansenAutoGraphiXAutomatedSystem2000} have already discovered many proven conjectures.
 As the entire graph space needs to be enumerated including the expensive computations of properties like tree-width, those datasets are usually heavily constrained and not.
 
-\begin{figure}[ht]
+\begin{figure}
 	\centering
 	\includestandalone[width=\linewidth]{figures/positioning}
 	\caption{Overview of graph learning approaches. As complexity and expressivety increase, the realizable graph order decreases}
@@ -90,10 +90,16 @@ In principle, the generator works by growing an initial graph vertex-by-vertex.
 Since addition cannot destroy a pattern, we can embed the imposed patterns into the initial graph.
 The growth process then only needs to avoid the forbidden patterns during growth, an operation that is monotone/upward-closed under both subgraph relations.
 Above a certain graph order and density, valid graphs become exponentially rare.
-To navigate the vast and hostile graph space, 
-% TODO:  , beam search, MCMCM annearling
-% Boundary crossing
-% Released data
+To navigate the vast and hostile graph space, we employ a mixture of heuristic approaches that get increasingly expensive.
+In general, the degree cap mode is used for generating sparse graphs, while the density mode is capable of generating dense graphs.
+Each growth-step suggest a new vertex including its neighborhood that is checked on whether it completes a forbidden pattern.
+To avoid stalls and other dead-ends we run multiple growth processes in parallel, managed by beam search.
+As neighborhood suggestions only partially help guide to the desired density a final MCMC annealing step finishes the desired graph.
+
+% TODO: Boundary crossing
+% TODO: rewrite
+Negatives in real datasets are usually close to (some) positives.
+Any random graph would likely be a negative, but it would loosen the decision boundary and thus the identifiability.
 
 
 \paragraph{Contributions}
@@ -108,18 +114,22 @@ Lastly, the datasets are evaluated on state-of-the-art GNNs and Explainers.
 
 \section{Related Work}
 
+% TODO: what about all the papers about sampling from degree sequences and so one,
+% e.g. \cite{tabourierGeneratingConstrainedRandom2012,erdosNewClassesDegree2018, matsunoImprovedMixingTime2020}
+
+
 \subsection{Benchmarks for Graph Learning and Explanation}
 
-Tree-Cycles, Tree-Grid, BA-Shapes, and BA-2Motifs are the most common and frequently used synthetic benchmark datasets in graph explainability research \cite{TODO the mentioned datasets}. They define a (binary) graph classification task based on the presence of motifs appended to a random background graph. 
+Tree-Cycles, Tree-Grid, BA-Shapes, and BA-2Motifs are the most common and frequently used synthetic benchmark datasets in graph explainability research \cite{yingGNNExplainerGeneratingExplanations2019, luoParameterizedExplainerGraph2020}. They define a (binary) graph classification task based on the presence of motifs appended to a random background graph. 
 % Background graph is not controlled so pattern might appear accidentally.
-ShapeGGen substantially improves tis design with topology, homophily and a node classification target \cite{TODO}.
+ShapeGGen substantially improves tis design with topology, homophily and a node classification target \cite{agarwalEvaluatingExplainabilityGraph2023}.
 
 
 Another category of synthetic datasets probe the expressive power of GNNs: EXP presents pairs of 2-WL distinguishable graphs \cite{abboudSurprisingPowerGraph2021}, BREC and families of strongly regular graphs span even more WL-levels  \cite{wangEmpiricalStudyRealized2024, balcilarBreakingLimitsMessage2021}.
 These ask whether an architecture can distinguish specific non-isomorphic pairs, while we are interested in detecting discriminative patterns.
 The adjacent question of counting relevant patterns further separates GNN architectures based on their expressiveness \cite{chenCanGraphNeural2020}.
 
-GraphWorld samples broad populations of synthetic tasks to study how model rankings change across generator parameters. Performance changed significantly once the synthetic graphs left the region of popular academic benchmarks \cite{TODO}.
+GraphWorld samples broad populations of synthetic tasks to study how model rankings change across generator parameters. Performance changed significantly once the synthetic graphs left the region of popular academic benchmarks \cite{palowitchGraphWorldFakeGraphs2022}.
 Most benchmarks have no or only trivial edge or node labels that are at best added separately through tools like ALBTER \cite{TODO} or GenCAT \cite{maekawaGenCATGeneratingAttributed2023}.
 SkyMap jointly generates topology and labelling, thereby eliminating common class imbalance and feature distribution issues \cite{wassingtonSkyMapGenerativeGraph2024}.
 
@@ -130,7 +140,7 @@ SkyMap jointly generates topology and labelling, thereby eliminating common clas
 
 % TODO: rewrite to cite azzolin 2025 and 2026 here!
 As opposed to instance-wise local explanations, a global explainers tries to explain the entire dataset (or model) directly, which is necessary for rule recovery.
-GraphFramEx argues that explanation evaluation must include necessity, sufficiency, stability, runtime, and simple baselines rather than only mask overlap \cite{TODO}.
+GraphFramEx argues that explanation evaluation must include necessity, sufficiency, stability, runtime, and simple baselines rather than only mask overlap \cite{amaraGraphFramExSystematicEvaluation2024}.
 Formal work further shows that minimal subgraph explanations correspond to logical prime implicants only under restricted conditions \cite{weinbauerPrimeImplicantExplanations2025}.
 Thus high fidelity to a predictor is not equivalent to recovering the data rule. 
 Model-level explainers usually try to disentangle a concept bottleneck layer to retrieve reusable recipes made from a conjunction of patterns \cite{azzolinGlobalExplainabilityGNNs2023, armgaanGRAPHTRAILTranslatingGNN, gengLogicXGNNGroundedLogical2026, ragnoLogicbasedSelfExplainableGraph2025} while other approaches directly try to distill the rule into a decision tree \cite{mullerGraphChefLearningRecipe, pluskaLogicalDistillationGraph2024}.
@@ -141,9 +151,9 @@ In classical graph theory many hereditary properties admit constructive generato
 While those are convenient and fast (usually polynomial time), they lack statistical control and don't provide a way to expose suitable negatives.
 
 Rejection based random graph sampling is simple and reliable but for many hereditary classes the valid members become exponentially rare, especially among larger densities and orders \cite{friezeIntroductionRandomGraphs2015}.
-Modeling the generation as a chain of edge toggles can work using MCMC-based approaches, but is often plagued by bad mixing performance due to the non-ergodic nature of most properties \cite{TODO}. % TODO: wang landau, etc.. 
+Modeling the generation as a chain of edge toggles can work using MCMC-based approaches, but is often plagued by bad mixing performance due to the non-ergodic nature of most properties \cite{taoImprovedMCMCAlgorithm2016}. % TODO: wang landau, etc.. 
 % Graphons describe limits of dense graph sequences rather than provide an exact finite-graph membership oracle \cite{lovaszLargeNetworksGraph2012}
-Exponential random graph models can encode selected statistics, but forbidden patterns can only be approached asymptotically \cite{TODO}.
+Exponential random graph models can encode selected statistics, but forbidden patterns can only be approached asymptotically \cite{buttsPerfectSamplingMethod2018}.
 
 Learned Generators, including diffusion models, require exactly the training data we aim to generate \cite{vignacDiGressDiscreteDenoising2023}.
 
@@ -193,6 +203,8 @@ The generator supports two containment relations. We say $H \subg G$ is the ordi
 
 \subsection{Rule Language}
 
+% We can also attach a "must" and "may" tag to each imposed pattern to emulate the any/all behaviour.
+
 Since we allow both induced and ordinary containment relations, we define a presence feature:
 $$
 A_{H,R}(G)=
@@ -213,7 +225,15 @@ The forbidden patterns alone define $P_{\Forb}=\bigwedge_i\neg A_{F_i,R_i}(G)$, 
 
 % To avoid expensive, yet redundant computations during generation we exploit the heredity and enforce an anti-chain amongst the foribdden patterns.
 
+% To allow only valid graphs (including negatives) we restrict the domain space:
+% $$
+%D_n = \{ G: |V(G)| = n  \land (\Delta(G) \leq \Delta_max  \lor \rho_- \leq \frac{|E(G)|}{\binom{n}{2}} \leq \rho_+) \land G \mathrm{connected} \}
+%$$
 
+The valid domain $D_n$ therefore contains connected graphs of given order within the desired degree or density range.
+The generator seeks $G \in D_n$ with $P(G) = 1$.
+Negatives constructed later must also belong to $D_n$.
+% Problem: do i check this constraint during the boundary crossing?
 
 
 
