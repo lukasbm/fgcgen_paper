@@ -11,30 +11,28 @@ box/.style={draw, rounded corners=5pt,
 >=Stealth
 ]
 
-\node[box, fill=gray!7, draw=gray] (a) {
+\node[box] (a) {
 	\textbf{Planted-motif attribution}\\
-	\textit{BA-Shapes \cite{TODO}, Spurious-Motif \cite{TODO}, ShapeGGen \cite{TODO}}\\
+	\textit{BA-Shapes \cite{yingGNNExplainerGeneratingExplanations2019}, Spurious-Motif \cite{wuDiscoveringInvariantRationales2022}, ShapeGGen \cite{agarwalEvaluatingExplainabilityGraph2023}}\\
 	Local presence tasks; simple pendants
 };
 
-\node[box, fill=teal!7, draw=teal!70!black,
-below=0.45cm of a] (b) {
+\node[box, below=0.45cm of a] (b) {
 	\textbf{Structural rule learning}\\
 	\textit{FGCGen (ours)}\\
 	Exact verifiable rule + statistical control + near-boundary negatives
 };
 
-\node[box, fill=purple!7, draw=purple!70!black,
-below=0.45cm of b] (c) {
+\node[box, below=0.45cm of b] (c) {
 	\textbf{Extremal search and conjecturing}\\
 	\textit{AutoGraphiX, TxGraffiti, exhaustive SAT/SMT}\\
 	Full small-order enumeration, invariant relations
 };
 
-\draw[->, gray, thick] (a) -- node[right, black, font=\bfseries\small]
+\draw[->, thick] (a) -- node[right, font=\bfseries\small]
 {richer rule} (b);
 
-\draw[->, gray, thick] (b) -- node[right, black, font=\bfseries\small]
+\draw[->, thick] (b) -- node[right, font=\bfseries\small]
 {richer rule} (c);
 
 \node[anchor=north east, font=\small\bfseries]

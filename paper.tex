@@ -6,6 +6,8 @@
 \usepackage{hyperref}
 \usepackage{standalone}
 \usepackage{tikz}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{library.bib}
 
 
 \usetikzlibrary{positioning,arrows.meta}
@@ -31,11 +33,11 @@
 
 \begin{abstract}
 Understanding the reasoning behind decisions of Graph Neural Networks (GNNs) is crucial for trustworthy machine learning.
-The novel field of Structural Graph Learning aims to output global and interpretable logical rules where current explainers often just yield a mask highlighting salient subgraphs for every single instance, often omitting crucial global information or model-wide patterns.
+The novel field of Structural Rule Learning aims to output global and interpretable logical rules where current explainers often just yield a mask highlighting salient subgraphs for every single instance, often omitting crucial global information or model-wide patterns.
 Existing graph benchmark datasets either lack a known ground-truth rule or are designed in a contrived way that makes them unsuitable for rule discovery.  % mention statistical shortcuts already?
 We identify multiple such failure cases in all existing benchmark datasets and present the \emph{Forbidden Graph Characterization Generator} (FGCGen) as a solution.
 Given forbidden subgraphs, optional imposed fragments, graph order, and a density band or degree cap, FGCGen grows connected valid graphs with a particle beam, and MCMC annealing.
-To ensure identifiability of the dataset rule a thightly defined decision boundary is required. 
+To ensure identifiability of the dataset rule a thightly defined decision boundary is required.
 We present the generation of suitable negatives as a optimization problem that has to balance the number of edits and violating patterns.
 Finally we show empirically that most current models are unable to detect the defining patterns and existing explainers cannot reliably highlight the fundamental rule.
 \end{abstract}
@@ -46,7 +48,7 @@ Many scientific questions about graphs concern a relationship between structure 
 In chemistry, certain mandatory functional groups or forbidden toxicophores determine the behaviour of a molecule or reaction. In other scenarios like finance and social networks, graph structures can reveal fraud or spam networks within a graph \cite{TODO}.
 While predictive models like GNNs have shown great success on these classification tasks, they do not naturally reveal the learned relationship.
 % Explainers
-(Graph) Explainers are attempts on extracting the underlying mechanism that lead to a decision, usually by highlighting a salient subgraph per instance \cite{GNNExplainer, PGExplainer, SubgraphX} or across the dataset \cite{XGNN, Some explainer survey}. More sophisticated approaches also output conjunctions of multiple patterns or simple graph rules \cite{GLGExplainer, LogiX-GIN, GraphTrail, mullerGraphChefLearningRecipe}.
+(Graph) Explainers are attempts on extracting the underlying mechanism that lead to a decision, usually by highlighting a salient subgraph per instance \cite{yingGNNExplainerGeneratingExplanations2019, luoParameterizedExplainerGraph2020, yuanExplainabilityGraphNeural2021} or across the dataset \cite{yuanXGNNModelLevelExplanations2020, yuanExplainabilityGraphNeural2023}. More sophisticated approaches also output conjunctions of multiple patterns or simple graph rules \cite{azzolinGlobalExplainabilityGNNs2023, ragnoLogicbasedSelfExplainableGraph2025, armgaanGRAPHTRAILTranslatingGNN, mullerGraphChefLearningRecipe}.
 % rule recovery / structural graph learning (explanations don't match rules)
 Recovering a general rule that classifies all graphs in the dataset is the main goal of structural graph learning.
 
@@ -69,7 +71,7 @@ Creating such data is hard because structural graph classes occupy highly constr
 
 
 % common dataset problems
- \cite{faber_problems}
+ \cite{faberWhenComparingGround2021}
 
 
 
@@ -133,7 +135,7 @@ The forbidden patterns alone define $P_{\Forb}=\bigwedge_i\neg A_{F_i,R_i}(G)$, 
 \section{Boundary Crossing}
 
 Suitable negatives need to remain close to the boundary.
-% TODO: positives are always boundary close, while negatives can be like $\varepsilon n^2$ far away \cite{TODO}
+% TODO: positives are always boundary close, while negatives can be like $\varepsilon n^2$ far away \cite{shapiraTestingEstimationGraph2024, martinEditDistanceFunction2013}
 
 % TODO: also make sure that this is not only for induced subgraphs. (consider ordianry and even imposed fragments?)
 
@@ -144,6 +146,8 @@ Given an in property graph $G \in \mathcal{G}$, we aim to retrieve a graph $G' =
 
 Unlike saturation theory this boundary crossing is 
 
+
+\printbibliography
 
 \appendix
 
