@@ -7,6 +7,8 @@
 \usepackage{hyperref}
 \usepackage{standalone}
 \usepackage{pgfplots}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{pgfplotstable}
 \usepackage{graphicx}
 \usepackage{subcaption}
@@ -41,13 +43,12 @@
 \maketitle
 
 \begin{abstract}
-Understanding the decisions of Graph Neural Networks (GNNs) requires methods that can recover the structural rules underlying graph-level predictions.
-Unlike instance-level explainers that identify salient subgraphs, structural rule learning aims to recover global, interpretable logical rules.
-However, existing graph benchmark either lack a known ground-truth rule or contain biases that undermine reliable rule discovery.
-We identifiy multiple failure modes in existing benchmarks and introduce the Graph Characterization Generator (\gen).
-Given forbidden subgraphs, optional imposed fragments, graph order, and a density band or degree cap, \gen generates connected valid graphs using vertex-by-vertex growth, beam search, and MCMC annealing.
-Negatives have to remain close to a tightly defined decision boundary to ensure identifiability of the dataset rule.
-Finally we show empirically that most current models are unable to detect the defining patterns and existing explainers cannot reliably highlight the fundamental rule in nontrivial properties.
+Evaluating structural rule learning in graph neural networks (GNNs) requires benchmarks that distinguish genuine structural reasoning from statistical shortcuts.
+Yet existing synthetic graph-learning benchmarks exhibit substantial label leakage through non-structural cues, allowing the models to predict labels without recovering a structural rule.
+We identify such failure modes in existing benchmarks and introduce the Graph Characterization Generator (\gen).
+Given forbidden subgraphs, optional imposed fragments, graph order, and a density band or degree cap, \gen can generate either sparse or dense connected graphs using vertex-by-vertex growth, beam search, and MCMC annealing.
+Negatives have to remain close to a tightly defined decision boundary to ensure model learnability and rule identifiability.
+Finally we show empirically that \gen avoids shortcuts while retaining the desired properties. Furthermore, most GNN models struggle to learn the target property and existing explainers cannot reliably highlight the relevant patterns in nontrivial properties.
 \end{abstract}
 
 \section{Introduction} \label{sec:intro}
@@ -201,7 +202,7 @@ The generator supports two containment relations. We say $H \subg G$ is the ordi
 
 
 
-\section{\gen}
+\section{\gen}\label{sec:generator}
 
 \gen constructs connected graphs via legal vertex extensions. Stalled particles are eliminated using beam search.
 
@@ -259,26 +260,117 @@ A beam state is $$X = (G, d^*, S, \Gamma, s, p)$$, where $G$ is a partial host,
 \end{figure*}
 
 
-\section{Boundary Crossing}
+\section{Boundary Crossing}\label{sec:crossing}
 
-Suitable negatives need to remain close to the boundary.
-% TODO: positives are always boundary close, while negatives can be like $\varepsilon n^2$ far away \cite{shapiraTestingEstimationGraph2024, martinEditDistanceFunction2013}
+% intro
+Let $G \in D_n$ satisfy the rule $P$ defined in and generated through \cref{sec:generator}.
+We seek a negative $G'=\toggle{G}{\delta}\in D_n$ with $P(G')=0$ and $|d| \leq k$ where $\delta\subseteq\binom{V(G)}2$ is a set of toggled pairs and $\operatorname{dist}(G',\mathcal P_n)\le\operatorname{dist}(G',G)=|\delta|\le k.$
+To avoid co-occurrences and to keep every pattern discriminative, we need to create violations both by destroying imposed patterns and by completing forbidden ones.
+In \texttt{all}-mode, every imposed occurrence needs to be destroyed without creating any forbidden pattern, which is a delicate operation in dense mode.
+% also cannot guarantee that negative still lies in density/degree cap band ...
+
+% existence of suitable negatives
+For a fixed, nonempty set of forbidden patterns, every sufficiently large positive graph is within a constant number of edge edits of a negative, bounded by the largest forbidden pattern.
+The reverse that would restrict the negatives is more expensive.
+A negative graph for an arbitrary property in the dense regime may require $\varepsilon n^2$ edge changes to satisfy the property \cite{shapiraTestingEstimationGraph2024, martinEditDistanceFunction2013}.
+This theorem showcases why negatives cannot be sampled independently and instead need to be derived from a positive.
+
+% posing it as an optimization problem
+
+
+% SAT requirements??
+
+
+% Instead of the violation profiles \alpha, cant we just track the completion profiles from the generation?
+To facilitate optim problem
+
+We prove that we have to consider suboptimals to achieve the pareto frontier in terms of suitable negatives.
 
 % TODO: also make sure that this is not only for induced subgraphs. (consider ordianry and even imposed fragments?)
 
 Given an in property graph $G \in \mathcal{G}$, we aim to retrieve a graph $G' = G \oplus \delta \not\in \mathcal{G}$ created through an edit set $\delta \subseteq \binom{V(G)}{2}$
-% TODO: proof that an edit set always exists
+% TODO: proof that an edit set always exists (it doesn't)
+% The edit cost $|\delta|$ and the witness count are two conflicting quantities.
 
-% The edit cost $| \delta |$ and the witness count are two conflicting quantities.
 
-Unlike saturation theory this boundary crossing is 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \printbibliography
 
 \appendix
 
 \section{Proofs}\label{app:proofs}
+
+\section{Algorithms}
+
+\subsection{Boundary Crossing}
+
+
+\begin{algorithm}
+	\caption{\textsc{Cross-Forbidden}}
+	\label{alg:cross-forbidden}
+	\begin{algorithmic}[1]
+		\Require Graph $G$, profile $\alpha$, admissibility condition
+		$\mathcal{A}$, shortlist size $L$, edit budget $k$
+		\Ensure Verified endpoint $G'$, net edits $\Delta$,
+		per-pattern counts $\mathbf{f}$, or failure
+		
+		\State \Call{AssertAdmissible}{$G,\alpha,\mathcal{A}$}
+		\State $\mathcal{C} \gets \varnothing$
+		\State $\mathcal{P} \gets \Call{RankToggles}{G,\eta}$
+		\Comment{Relation-aware bound}
+		
+		\Comment{Phase I: Single-toggle search}
+		\ForAll{$p \in \Call{TopL}{\mathcal{P},L}$}
+		\If{$\eta(p) > 0$}
+		\State $\Delta \gets \{p\}$
+		\State $\mathbf{h} \gets
+		\Call{CountAnchoredSupports}{G \oplus \Delta}$
+		\If{\Call{Qualifies}{$\Delta,\mathbf{h}$}}
+		\State $\mathcal{C} \gets \mathcal{C} \cup \{\Delta\}$
+		\EndIf
+		\EndIf
+		\EndFor
+		
+		\Comment{Phase II: Bounded target completion}
+		\State $b \gets 2$
+		\While{$\mathcal{C} = \varnothing$ \textbf{and} $b \le k$}
+		\ForAll{$\Delta \in \Call{TargetCompletions}{G,b}$}
+		\State $\mathbf{h} \gets
+		\Call{CountAnchoredSupports}{G \oplus \Delta}$
+		\If{\Call{Qualifies}{$\Delta,\mathbf{h}$}}
+		\State $\mathcal{C} \gets \mathcal{C} \cup \{\Delta\}$
+		\EndIf
+		\EndFor
+		\State $b \gets b+1$
+		\EndWhile
+		
+		\If{$\mathcal{C} = \varnothing$}
+		\State \Return \textsc{Failure}
+		\EndIf
+		
+		\Comment{Phase III: Selection and verification}
+		\State $\displaystyle
+		\Delta^\star \gets
+		\arg\min_{\Delta \in \mathcal{C}}
+		\Call{ExactForbiddenCount}{G \oplus \Delta}$
+		
+		\State $\Delta^\star \gets
+		\Call{OptionalCleanup}{G,\Delta^\star,k}$
+		\Comment{Respect total budget}
+		
+		\State $G' \gets G \oplus \Delta^\star$
+		\If{\textbf{not} \Call{VerifyFullRule}{$G',\alpha,\mathcal{A}$}}
+		\State \Return \textsc{Failure}
+		\EndIf
+		
+		\State $\mathbf{f} \gets \Call{CountPerPattern}{G'}$
+		\State \Return $(G',\Delta^\star,\mathbf{f})$
+		
+	\end{algorithmic}
+\end{algorithm}
+
 
 
 \end{document}
