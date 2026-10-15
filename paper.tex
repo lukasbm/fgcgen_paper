@@ -37,11 +37,11 @@
 \maketitle
 
 \begin{abstract}
-Understanding the reasoning behind decisions of Graph Neural Networks (GNNs) is crucial for trustworthy machine learning.
-The novel field of Structural Rule Learning aims to output global and interpretable logical rules where current explainers often just yield a mask highlighting salient subgraphs for every single instance, often omitting crucial global information or model-wide patterns.
-Existing graph benchmark datasets either lack a known ground-truth rule or are designed in a contrived way that makes them unsuitable for rule discovery.
-We identify multiple such failure cases in all existing benchmark datasets and present the \emph{Forbidden Graph Characterization Generator} (FGCGen) as a solution.
-Given forbidden subgraphs, optional imposed fragments, graph order, and a density band or degree cap, FGCGen generates connected valid graphs.
+Understanding the decisions of Graph Neural Networks (GNNs) requires methods that can recover the structural rules underlying graph-level predictions.
+Unlike instance-level explainers that identify salient subgraphs, structural rule learning aims to recover global, interpretable logical rules.
+However, existing graph benchmark either lack a known ground-truth rule or contain biases that undermine reliable rule discovery.
+We identifiy multiple failure modes in existing benchmarks and introduce the Graph Characterization Generator (GCGen).
+Given forbidden subgraphs, optional imposed fragments, graph order, and a density band or degree cap, GCGen generates connected valid graphs using vertex-by-vertex growth, beam search, and MCMC annealing.
 Negatives have to remain close to a tightly defined decision boundary to ensure identifiability of the dataset rule.
 Finally we show empirically that most current models are unable to detect the defining patterns and existing explainers cannot reliably highlight the fundamental rule in nontrivial properties.
 \end{abstract}
@@ -81,9 +81,9 @@ As the entire graph space needs to be enumerated including the expensive computa
 The impreciseness of simple approaches and the limited size, lack of control and cost of the conjecturing systems leaves a gap for datasets that are large and precise enough for structural graph learning, while still being reasonably cheap to generate. The gap is visualized in \cref{fig:overview}.
 Creating such data is hard because structural graph classes occupy highly constrained regions of graph space.
 Blind (rejection) sampling can make valid graphs vanishingly rare, while independently generated class pools can be separated by density, degree, construction artifacts, or a wide edit margin.
-To this end, we present FGCGen, a generator that can takes a basis that is defined through a basis of mandatory patterns from which either all have to appear together or only selected candidates from the set, and a set of forbidden patterns.
+To this end, we present GCGen, a generator that can takes a basis that is defined through a basis of mandatory patterns from which either all have to appear together or only selected candidates from the set, and a set of forbidden patterns.
 For each pattern both the induced and ordinary subgraph relation is allowed.
-In the induced case, the forbidden basis is equivalent to specifying hereditary property through a forbidden graph characterization (FGC), hence the name FGCGen.
+In the induced case, the forbidden basis is equivalent to specifying hereditary property through a forbidden graph characterization.
 Additionally, we can guide the generation further by aiming towards a target density or degree cap.
 Varying these values allows for trivial generation of useful OOD datasets.
 In principle, the generator works by growing an initial graph vertex-by-vertex.
@@ -105,11 +105,11 @@ Any random graph would likely be a negative, but it would loosen the decision bo
 \paragraph{Contributions}
 This paper makes four contributions.
 First the shortcomings of existing datasets are defined and the requirements and interfaces for a reliable generator are defined.
-Second, we develop FGCGen. A precise generator for properties defined through ordinary and induced subgraph patterns. This is released as a software package, together with a dataset suite of selected properties.
+Second, we develop GCGen. A precise generator for properties defined through ordinary and induced subgraph patterns. This is released as a software package, together with a dataset suite of selected properties.
 Third, we generate suitable boundary-close negatives.
 Lastly, the datasets are evaluated on state-of-the-art GNNs and Explainers.
 % TODO: mention also that we found witness floors, mandatory hubs (cographs) and overrigid classes?
-
+% TODO: mention the audits as well!
 
 
 \section{Related Work}
@@ -176,8 +176,6 @@ To constraint the set of valid negative to be boundary-close, we require negativ
 
 The generator supports two containment relations. We say $H \subg G$ is the ordinary monomorphism: an injective edge-preserving map where additional host edges among mapped vertices are allowed. $H \subgind G$ defines the induced subgraph isomorphism, a map that also preserves nonedges.
 
-
-
 % common dataset problems
 \cite{faberWhenComparingGround2021}
 
@@ -199,7 +197,7 @@ The generator supports two containment relations. We say $H \subg G$ is the ordi
 
 
 
-\section{FGCGen}
+\section{GCGen}
 
 \subsection{Rule Language}
 
@@ -234,7 +232,6 @@ The valid domain $D_n$ therefore contains connected graphs of given order within
 The generator seeks $G \in D_n$ with $P(G) = 1$.
 Negatives constructed later must also belong to $D_n$.
 % Problem: do i check this constraint during the boundary crossing?
-
 
 
 \section{Boundary Crossing}
