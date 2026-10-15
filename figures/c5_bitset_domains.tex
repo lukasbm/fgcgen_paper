@@ -1,0 +1,92 @@
+\documentclass[tikz,border=3pt]{standalone}
+
+% One proposal checked against the compiled C5 plan: the host graph a-e with the
+% new vertex z attached to a and d, and the role domains as bitsets over a-e.
+% Ported from the "forbidden patterns as search templates" slide.
+% The macros live in the body, not the preamble, so that \includestandalone
+% in the paper (default mode) picks them up together with the picture.
+
+\begin{document}
+
+% all coordinates are plain numbers in cm (the default TikZ units)
+\newcommand{\bitpitch}{0.4}
+
+% \bitset{x}{y}{filled letters}: five boxes a-e, the listed letters inked
+\newcommand{\bitset}[3]{%
+	\foreach \k/\letter in {0/a,1/b,2/c,3/d,4/e}{%
+		\edef\bsletter{\letter}%
+		\def\bson{0}%
+		\foreach \m in {#3}{%
+			\edef\bsmember{\m}%
+			\ifx\bsmember\bsletter\gdef\bson{1}\fi
+		}%
+		\ifnum\bson=1
+			\node[bit on] at ({#1+\k*\bitpitch},#2) {\letter};
+		\else
+			\node[bit off] at ({#1+\k*\bitpitch},#2) {\letter};
+		\fi
+	}%
+}
+
+\begin{tikzpicture}[
+	% one fixed text box for every letter, so all glyphs share a baseline
+	% (height/depth ~ the font's ascent/descent, as a centred line box would)
+	glyph/.style={inner sep=0pt, text height=1.6ex, text depth=0.6ex},
+	vertex/.style={circle, draw, line width=0.8pt, minimum size=0.55cm, font=\small\bfseries, glyph},
+	vertex z/.style={vertex, fill=black, text=white},
+	edge/.style={line width=0.8pt},
+	attach/.style={edge, dashed},
+	bit off/.style={glyph, fill=black!8, minimum width=0.34cm, minimum height=0.40cm, font=\scriptsize, text=black!45},
+	bit on/.style={bit off, fill=black, text=white},
+	tag/.style={font=\small},
+]
+
+	% ---- host graph; slide coordinates, shifted so it sits over the table ----
+	\begin{scope}[shift={(4.3,0)}]
+		\node[vertex] (a) at (-1.6,0)   {a};
+		\node[vertex] (b) at (-0.8,1.1) {b};
+		\node[vertex] (c) at ( 0.8,1.1) {c};
+		\node[vertex] (d) at ( 1.6,0)   {d};
+		\node[vertex] (e) at (-2.9,0.6) {e};
+		\node[vertex z] (z) at (0,-1.3) {z};
+		\draw[edge] (a) -- (b) -- (c) -- (d);
+		\draw[edge] (a) -- (e);
+		\draw[attach] (z) -- (a);
+		\draw[attach] (z) -- (d);
+	\end{scope}
+
+	% ---- role domains, one row per placement --------------------------------
+	% bitset columns: role 1 at x = 0, role 2 at 2.3, role 3 at 4.6, role 4 at 6.9
+	\node[tag] at (0.98,-2.30) {role 1};
+	\node[tag] at (3.28,-2.30) {role 2};
+	\node[tag] at (5.58,-2.30) {role 3};
+	\node[tag] at (7.88,-2.30) {role 4};
+	\draw[line width=0.4pt] (-1.6,-2.57) -- (8.86,-2.57);
+
+	\node[tag, anchor=west] at (-1.5,-3.00) {start};
+	\bitset{0.0}{-3.00}{a,d}
+	\bitset{2.3}{-3.00}{a,b,c,d,e}
+	\bitset{4.6}{-3.00}{a,b,c,d,e}
+	\bitset{6.9}{-3.00}{a,d}
+
+	\node[tag, anchor=west] at (-1.5,-3.60) {1 $\leftarrow$ a};
+	\bitset{0.0}{-3.60}{a}
+	\bitset{2.3}{-3.60}{b,e}
+	\bitset{4.6}{-3.60}{b,c,d,e}
+	\bitset{6.9}{-3.60}{d}
+
+	\node[tag, anchor=west] at (-1.5,-4.20) {4 $\leftarrow$ d};
+	\bitset{2.3}{-4.20}{b,e}
+	\bitset{4.6}{-4.20}{c}
+	\bitset{6.9}{-4.20}{d}
+
+	\node[tag, anchor=west] at (-1.5,-4.80) {3 $\leftarrow$ c};
+	\bitset{2.3}{-4.80}{b}
+	\bitset{4.6}{-4.80}{c}
+
+	\node[tag, anchor=west] at (-1.5,-5.40) {2 $\leftarrow$ b};
+	\bitset{2.3}{-5.40}{b}
+
+\end{tikzpicture}
+
+\end{document}

@@ -13,6 +13,9 @@
 \usepackage{smartref}
 \usepackage{cleveref}
 \usepackage{tikz}
+\usepackage{xspace}
+
+
 \usepackage[backend=biber,style=ieee]{biblatex}
 \addbibresource{library.bib}
 
@@ -27,9 +30,10 @@
 \newcommand{\toggle}[2]{#1\mathbin{\oplus}#2}
 \newcommand{\edcost}[1]{\lvert #1\rvert}
 \newcommand{\ParetoMin}{\operatorname{ParetoMin}}
+\newcommand{\gen}{GCGen\xspace}
 
 
-\title{FGCGen: Generating Synthetic Graph Datasets for Structural Rule Discovery}
+\title{\gen: Generating Synthetic Graph Datasets for Structural Rule Discovery}
 \author{Lukas Böhm}
 \date{\today}
 
@@ -40,8 +44,8 @@
 Understanding the decisions of Graph Neural Networks (GNNs) requires methods that can recover the structural rules underlying graph-level predictions.
 Unlike instance-level explainers that identify salient subgraphs, structural rule learning aims to recover global, interpretable logical rules.
 However, existing graph benchmark either lack a known ground-truth rule or contain biases that undermine reliable rule discovery.
-We identifiy multiple failure modes in existing benchmarks and introduce the Graph Characterization Generator (GCGen).
-Given forbidden subgraphs, optional imposed fragments, graph order, and a density band or degree cap, GCGen generates connected valid graphs using vertex-by-vertex growth, beam search, and MCMC annealing.
+We identifiy multiple failure modes in existing benchmarks and introduce the Graph Characterization Generator (\gen).
+Given forbidden subgraphs, optional imposed fragments, graph order, and a density band or degree cap, \gen generates connected valid graphs using vertex-by-vertex growth, beam search, and MCMC annealing.
 Negatives have to remain close to a tightly defined decision boundary to ensure identifiability of the dataset rule.
 Finally we show empirically that most current models are unable to detect the defining patterns and existing explainers cannot reliably highlight the fundamental rule in nontrivial properties.
 \end{abstract}
@@ -81,7 +85,7 @@ As the entire graph space needs to be enumerated including the expensive computa
 The impreciseness of simple approaches and the limited size, lack of control and cost of the conjecturing systems leaves a gap for datasets that are large and precise enough for structural graph learning, while still being reasonably cheap to generate. The gap is visualized in \cref{fig:overview}.
 Creating such data is hard because structural graph classes occupy highly constrained regions of graph space.
 Blind (rejection) sampling can make valid graphs vanishingly rare, while independently generated class pools can be separated by density, degree, construction artifacts, or a wide edit margin.
-To this end, we present GCGen, a generator that can takes a basis that is defined through a basis of mandatory patterns from which either all have to appear together or only selected candidates from the set, and a set of forbidden patterns.
+To this end, we present \gen, a generator that can takes a basis that is defined through a basis of mandatory patterns from which either all have to appear together or only selected candidates from the set, and a set of forbidden patterns.
 For each pattern both the induced and ordinary subgraph relation is allowed.
 In the induced case, the forbidden basis is equivalent to specifying hereditary property through a forbidden graph characterization.
 Additionally, we can guide the generation further by aiming towards a target density or degree cap.
@@ -197,9 +201,9 @@ The generator supports two containment relations. We say $H \subg G$ is the ordi
 
 
 
-\section{GCGen}
+\section{\gen}
 
-\subsection{Rule Language}
+\gen constructs connected graphs via legal vertex extensions. Stalled particles are eliminated using beam search.
 
 % We can also attach a "must" and "may" tag to each imposed pattern to emulate the any/all behaviour.
 
@@ -232,6 +236,27 @@ The valid domain $D_n$ therefore contains connected graphs of given order within
 The generator seeks $G \in D_n$ with $P(G) = 1$.
 Negatives constructed later must also belong to $D_n$.
 % Problem: do i check this constraint during the boundary crossing?
+
+
+\subsection{Beam Search} % or just a paragraph?
+
+% TODO: introduce it for this case.
+A beam state is $$X = (G, d^*, S, \Gamma, s, p)$$, where $G$ is a partial host, 
+
+
+\begin{figure}
+	\centering
+	\includestandalone[width=\linewidth]{figures/c5_bitset_domains}
+	\caption{Partial pattern evaluation assignment using bitsets.}
+	\label{fig:bitset}
+\end{figure}
+
+\begin{figure*}
+	\centering
+	\resizebox{\textwidth}{!}{\includestandalone{figures/beam_states}}  % actual full-width
+	\caption{Particle beam management for $k=4$}
+	\label{fig:beam-states}
+\end{figure*}
 
 
 \section{Boundary Crossing}
